@@ -112,6 +112,7 @@ fun CardNumberInputField() {
             )
         },
         visualTransformation = CardNumberVisualTransformation(),
+        singleLine = true,
     )
 }
 
@@ -134,6 +135,7 @@ fun ExpiryDateInputField() {
             )
         },
         visualTransformation = ExpiryDateVisualTransformation(),
+        singleLine = true,
     )
 }
 
@@ -156,10 +158,14 @@ fun CardOwnerInputField() {
                     color = Color.Gray,
                 )
             },
+            singleLine = true,
         )
         Text(
             "${text.length}/30",
-            modifier = Modifier.align(Alignment.End).padding(end = 16.dp, top = 4.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.End)
+                    .padding(end = 16.dp, top = 4.dp),
         )
     }
 }
@@ -183,6 +189,7 @@ fun PasswordInputField() {
             )
         },
         visualTransformation = PasswordVisualTransformation(),
+        singleLine = true,
     )
 }
 
