@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.text.isDigitsOnly
 import woowacourse.payments.R
 import woowacourse.payments.ui.component.PaymentCard
 
@@ -102,7 +101,8 @@ fun CardNumberInputField() {
         modifier = Modifier.fillMaxWidth(),
         value = text,
         onValueChange = { newText ->
-            if (newText.isDigitsOnly() && newText.length <= maxLength) text = newText
+            val filteredText = newText.filter { it.isDigit() }
+            if (filteredText.length <= maxLength) text = filteredText
         },
         label = { Text(stringResource(R.string.card_number_label)) },
         placeholder = {
@@ -125,7 +125,8 @@ fun ExpiryDateInputField() {
         modifier = Modifier.fillMaxWidth(0.5f),
         value = text,
         onValueChange = { newText ->
-            if (newText.isDigitsOnly() && newText.length <= maxLength) text = newText
+            val filteredText = newText.filter { it.isDigit() }
+            if (filteredText.length <= maxLength) text = filteredText
         },
         label = { Text(stringResource(R.string.expriy_date_label)) },
         placeholder = {
@@ -179,7 +180,8 @@ fun PasswordInputField() {
         modifier = Modifier.fillMaxWidth(0.5f),
         value = text,
         onValueChange = { newText ->
-            if (newText.isDigitsOnly() && newText.length <= maxLength) text = newText
+            val filteredText = newText.filter { it.isDigit() }
+            if (filteredText.length <= maxLength) text = filteredText
         },
         label = { Text(stringResource(R.string.password_label)) },
         placeholder = {
