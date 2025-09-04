@@ -5,23 +5,25 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-class ExpiryDateVisualTransformation : VisualTransformation {
+class ExpiryDateVisualTransformation(
+    private val separator: String,
+) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText =
-            buildString {
-                text.text.forEachIndexed { index, char ->
-                    append(char)
-                    if (index == 1 && text.text.length > 1) append("/")
-                }
-            }
+        val transformedText = text.text.chunked(EXPIRY_DATE_BLOCK_SIZE).joinToString(separator)
 
         val offsetMapping =
             object : OffsetMapping {
-                override fun originalToTransformed(offset: Int) = if (offset <= 1) offset else offset + 1
+                override fun originalToTransformed(offset: Int) =
+                    (offset + offset / EXPIRY_DATE_BLOCK_SIZE).coerceAtMost(transformedText.length)
 
-                override fun transformedToOriginal(offset: Int) = if (offset <= 2) offset else offset - 1
+                override fun transformedToOriginal(offset: Int) =
+                    (offset - offset / (EXPIRY_DATE_BLOCK_SIZE + 1)).coerceAtMost(text.text.length)
             }
 
         return TransformedText(AnnotatedString(transformedText), offsetMapping)
+    }
+
+    companion object {
+        private const val EXPIRY_DATE_BLOCK_SIZE: Int = 2
     }
 }

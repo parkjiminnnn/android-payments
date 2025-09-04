@@ -57,12 +57,12 @@ fun NewCardTopBar(
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
-        title = { Text("카드 추가") },
+        title = { Text(stringResource(R.string.title_card_register)) },
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "뒤로 가기",
+                    contentDescription = stringResource(R.string.content_desc_back),
                 )
             }
         },
@@ -70,7 +70,7 @@ fun NewCardTopBar(
             IconButton(onClick = { onSaveClick() }) {
                 Icon(
                     imageVector = Icons.Filled.Check,
-                    contentDescription = "완료",
+                    contentDescription = stringResource(R.string.content_desc_done),
                 )
             }
         },
@@ -111,7 +111,7 @@ fun CardNumberInputField() {
                 color = Color.Gray,
             )
         },
-        visualTransformation = CardNumberVisualTransformation(),
+        visualTransformation = CardNumberVisualTransformation(stringResource(R.string.card_number_separator)),
         singleLine = true,
     )
 }
@@ -134,7 +134,7 @@ fun ExpiryDateInputField() {
                 color = Color.Gray,
             )
         },
-        visualTransformation = ExpiryDateVisualTransformation(),
+        visualTransformation = ExpiryDateVisualTransformation(stringResource(R.string.expiry_date_separator)),
         singleLine = true,
     )
 }
@@ -161,7 +161,7 @@ fun CardOwnerInputField() {
             singleLine = true,
         )
         Text(
-            "${text.length}/30",
+            stringResource(R.string.card_owner_length, text.length),
             modifier =
                 Modifier
                     .align(Alignment.End)
@@ -188,7 +188,7 @@ fun PasswordInputField() {
                 color = Color.Gray,
             )
         },
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = PasswordVisualTransformation(stringResource(R.string.password_mask_char)),
         singleLine = true,
     )
 }

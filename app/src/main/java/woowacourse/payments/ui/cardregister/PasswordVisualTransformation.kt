@@ -5,9 +5,11 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-class PasswordVisualTransformation : VisualTransformation {
+class PasswordVisualTransformation(
+    private val passwordMaskChar: String,
+) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText = "*".repeat(text.text.length)
+        val transformedText = passwordMaskChar.repeat(text.text.length)
         return TransformedText(AnnotatedString(transformedText), OffsetMapping.Identity)
     }
 }
