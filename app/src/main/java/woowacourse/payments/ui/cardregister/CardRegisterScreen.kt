@@ -16,6 +16,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,13 +25,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
+import woowacourse.payments.R
 import woowacourse.payments.ui.component.PaymentCard
 
 @Composable
 fun CardRegisterScreen() {
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             NewCardTopBar(
                 onBackClick = {},
@@ -51,6 +56,7 @@ fun NewCardTopBar(
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
         title = { Text("카드 추가") },
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
@@ -88,31 +94,108 @@ fun CardRegisterScreenContent(padding: PaddingValues) {
 }
 
 @Composable
-fun InputFieldItem(
-    labelText: String,
-    placeholderText: String,
-    weight: Float = 1f,
-) {
+fun CardNumberInputField() {
     var text by remember { mutableStateOf("") }
+    val maxLength = 16
+
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(weight),
+        modifier = Modifier.fillMaxWidth(),
         value = text,
-        onValueChange = { newText -> text = newText },
-        label = { Text(text = labelText) },
-        placeholder = { Text(text = placeholderText, color = Color.Gray) },
+        onValueChange = { newText ->
+            if (newText.isDigitsOnly() && newText.length <= maxLength) text = newText
+        },
+        label = { Text(stringResource(R.string.card_number_label)) },
+        placeholder = {
+            Text(
+                text = stringResource(R.string.card_number_place_holder),
+                color = Color.Gray,
+            )
+        },
+        visualTransformation = CardNumberVisualTransformation(),
+    )
+}
+
+@Composable
+fun ExpiryDateInputField() {
+    var text by remember { mutableStateOf("") }
+    val maxLength = 4
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(0.5f),
+        value = text,
+        onValueChange = { newText ->
+            if (newText.isDigitsOnly() && newText.length <= maxLength) text = newText
+        },
+        label = { Text(stringResource(R.string.expriy_date_label)) },
+        placeholder = {
+            Text(
+                text = stringResource(R.string.expiry_date_place_holder),
+                color = Color.Gray,
+            )
+        },
+        visualTransformation = ExpiryDateVisualTransformation(),
+    )
+}
+
+@Composable
+fun CardOwnerInputField() {
+    var text by remember { mutableStateOf("") }
+    val maxLength = 30
+
+    Column {
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = text,
+            onValueChange = { newText ->
+                if (newText.length <= maxLength) text = newText
+            },
+            label = { Text(stringResource(R.string.card_owner_label)) },
+            placeholder = {
+                Text(
+                    text = stringResource(R.string.card_owner_placeholder),
+                    color = Color.Gray,
+                )
+            },
+        )
+        Text(
+            "${text.length}/30",
+            modifier = Modifier.align(Alignment.End).padding(end = 16.dp, top = 4.dp),
+        )
+    }
+}
+
+@Composable
+fun PasswordInputField() {
+    var text by remember { mutableStateOf("") }
+    val maxLength = 4
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(0.5f),
+        value = text,
+        onValueChange = { newText ->
+            if (newText.isDigitsOnly() && newText.length <= maxLength) text = newText
+        },
+        label = { Text(stringResource(R.string.password_label)) },
+        placeholder = {
+            Text(
+                text = stringResource(R.string.password_place_holder),
+                color = Color.Gray,
+            )
+        },
+        visualTransformation = PasswordVisualTransformation(),
     )
 }
 
 @Composable
 fun InputFields() {
     Column(
-        modifier = Modifier.padding(vertical = 40.dp),
+        modifier = Modifier.padding(top = 40.dp),
         verticalArrangement = Arrangement.spacedBy(30.dp),
     ) {
-        InputFieldItem("카드 번호", "0000 - 0000 - 0000 - 0000")
-        InputFieldItem("만료일", "MM/YY", 0.5f)
-        InputFieldItem("카드 소유자 이름(선택)", "카드에 표시된 이름을 입력하세요.")
-        InputFieldItem("비밀번호", "0000", 0.5f)
+        CardNumberInputField()
+        ExpiryDateInputField()
+        CardOwnerInputField()
+        PasswordInputField()
     }
 }
 
