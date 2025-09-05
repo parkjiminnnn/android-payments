@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.payments.R
@@ -175,7 +176,7 @@ fun CardOwnerInputField() {
         },
         singleLine = true,
         supportingText = {
-            Row (modifier = Modifier.fillMaxWidth()){
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(Modifier.weight(1f))
                 Text(
                     stringResource(R.string.card_owner_length, text.length),
@@ -204,7 +205,7 @@ fun PasswordInputField() {
                 color = Color.Gray,
             )
         },
-        visualTransformation = PasswordVisualTransformation(stringResource(R.string.password_mask_char)),
+        visualTransformation = PasswordVisualTransformation(),
         singleLine = true,
     )
 }
