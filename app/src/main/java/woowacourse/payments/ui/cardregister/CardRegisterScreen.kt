@@ -93,6 +93,19 @@ fun CardRegisterScreenContent(padding: PaddingValues) {
 }
 
 @Composable
+fun InputFields() {
+    Column(
+        modifier = Modifier.padding(top = 40.dp),
+        verticalArrangement = Arrangement.spacedBy(30.dp),
+    ) {
+        CardNumberInputField()
+        ExpiryDateInputField()
+        CardOwnerInputField()
+        PasswordInputField()
+    }
+}
+
+@Composable
 fun CardNumberInputField() {
     var text by remember { mutableStateOf("") }
     val maxLength = 16
@@ -193,19 +206,6 @@ fun PasswordInputField() {
         visualTransformation = PasswordVisualTransformation(stringResource(R.string.password_mask_char)),
         singleLine = true,
     )
-}
-
-@Composable
-fun InputFields() {
-    Column(
-        modifier = Modifier.padding(top = 40.dp),
-        verticalArrangement = Arrangement.spacedBy(30.dp),
-    ) {
-        CardNumberInputField()
-        ExpiryDateInputField()
-        CardOwnerInputField()
-        PasswordInputField()
-    }
 }
 
 @Preview
