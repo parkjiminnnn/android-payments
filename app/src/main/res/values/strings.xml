@@ -12,8 +12,6 @@
     <string name="title_card_register">카드 추가</string>
     <string name="content_desc_back">뒤로 가기</string>
     <string name="content_desc_done">완료</string>
-    <string name="card_number_separator">-</string>
-    <string name="expiry_date_separator">/</string>
     <string name="password_mask_char">*</string>
     <string name="card_owner_length">%1$d/30</string>
 </resources>

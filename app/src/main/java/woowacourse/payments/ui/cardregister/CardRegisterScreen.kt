@@ -111,7 +111,7 @@ fun CardNumberInputField() {
                 color = Color.Gray,
             )
         },
-        visualTransformation = CardNumberVisualTransformation(stringResource(R.string.card_number_separator)),
+        visualTransformation = CardNumberVisualTransformation(),
         singleLine = true,
     )
 }
@@ -135,7 +135,7 @@ fun ExpiryDateInputField() {
                 color = Color.Gray,
             )
         },
-        visualTransformation = ExpiryDateVisualTransformation(stringResource(R.string.expiry_date_separator)),
+        visualTransformation = ExpiryDateVisualTransformation(),
         singleLine = true,
     )
 }

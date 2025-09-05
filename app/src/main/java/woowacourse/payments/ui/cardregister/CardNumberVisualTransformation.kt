@@ -5,11 +5,9 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-class CardNumberVisualTransformation(
-    private val separator: String,
-) : VisualTransformation {
+class CardNumberVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText = text.text.chunked(CARD_NUMBER_BLOCK_SIZE).joinToString(separator)
+        val transformedText = text.text.chunked(CARD_NUMBER_BLOCK_SIZE).joinToString("-")
 
         val offsetMapping =
             object : OffsetMapping {
