@@ -3,6 +3,8 @@ package woowacourse.payments.ui.cardregister
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -158,30 +160,29 @@ fun CardOwnerInputField() {
     var text by remember { mutableStateOf("") }
     val maxLength = 30
 
-    Column {
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = text,
-            onValueChange = { newText ->
-                if (newText.length <= maxLength) text = newText
-            },
-            label = { Text(stringResource(R.string.card_owner_label)) },
-            placeholder = {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = text,
+        onValueChange = { newText ->
+            if (newText.length <= maxLength) text = newText
+        },
+        label = { Text(stringResource(R.string.card_owner_label)) },
+        placeholder = {
+            Text(
+                text = stringResource(R.string.card_owner_placeholder),
+                color = Color.Gray,
+            )
+        },
+        singleLine = true,
+        supportingText = {
+            Row (modifier = Modifier.fillMaxWidth()){
+                Spacer(Modifier.weight(1f))
                 Text(
-                    text = stringResource(R.string.card_owner_placeholder),
-                    color = Color.Gray,
+                    stringResource(R.string.card_owner_length, text.length),
                 )
-            },
-            singleLine = true,
-        )
-        Text(
-            stringResource(R.string.card_owner_length, text.length),
-            modifier =
-                Modifier
-                    .align(Alignment.End)
-                    .padding(end = 16.dp, top = 4.dp),
-        )
-    }
+            }
+        },
+    )
 }
 
 @Composable
