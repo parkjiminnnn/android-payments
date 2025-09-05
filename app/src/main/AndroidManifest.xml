@@ -13,7 +13,7 @@
         <activity
             android:name=".ui.cardregister.CardRegisterActivity"
             android:exported="true"
-            android:label="@string/title_activity_card_regitster"
+            android:label="CardRegisterActivity"
             android:theme="@style/Theme.Androidpayments">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
