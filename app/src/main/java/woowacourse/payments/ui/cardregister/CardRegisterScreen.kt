@@ -18,7 +18,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,7 +36,6 @@ import woowacourse.payments.ui.component.PaymentCard
 @Composable
 fun CardRegisterScreen() {
     Scaffold(
-        containerColor = Color.White,
         topBar = {
             NewCardTopBar(
                 onBackClick = {},
@@ -58,7 +56,6 @@ fun NewCardTopBar(
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
         title = { Text(stringResource(R.string.title_card_register)) },
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
