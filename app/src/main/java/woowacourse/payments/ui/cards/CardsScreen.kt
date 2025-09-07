@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.payments.domain.CardCount
+import woowacourse.payments.domain.Cards
 import woowacourse.payments.ui.theme.Gray10
 import woowacourse.payments.ui.theme.Gray57
 
@@ -31,7 +33,7 @@ fun CardsScreen(onCardAddClick: () -> Unit = {}) {
     Scaffold(
         topBar = {
             CardsTopBar(
-                onAddClick = { onCardAddClick() },
+                onCardAddClick = { onCardAddClick() },
             )
         },
         content = { innerPadding ->
@@ -46,20 +48,22 @@ fun CardsScreen(onCardAddClick: () -> Unit = {}) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardsTopBar(
-    onAddClick: () -> Unit,
+    onCardAddClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CenterAlignedTopAppBar(
         title = { Text("Payments") },
         modifier = modifier,
         actions = {
-            Text(
-                modifier =
-                    Modifier
-                        .clickable { onAddClick() }
-                        .padding(end = 20.dp),
-                text = "추가",
-            )
+            if (Cards.getCount() != CardCount.MULTIPLE) {
+                Text(
+                    modifier =
+                        Modifier
+                            .clickable { onCardAddClick() }
+                            .padding(end = 20.dp),
+                    text = "추가",
+                )
+            }
         },
     )
 }
@@ -77,13 +81,32 @@ fun CardsScreenContent(
                 .padding(paddingValues)
                 .fillMaxSize(),
     ) {
-        Text(
-            text = "새로운 카드를 등록해주세요.",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(vertical = 32.dp),
-        )
-        NewCard(onCardAddClick = onCardAddClick)
+        when (Cards.getCount()) {
+            CardCount.NONE -> {
+                Text(
+                    text = "새로운 카드를 등록해주세요.",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(vertical = 32.dp),
+                )
+                NewCard(onCardAddClick = onCardAddClick)
+            }
+
+            CardCount.ONE -> {
+                RegisteredCards(modifier)
+                NewCard(onCardAddClick = onCardAddClick)
+            }
+
+            CardCount.MULTIPLE -> {
+                RegisteredCards(modifier)
+            }
+        }
+    }
+}
+
+@Composable
+fun RegisteredCards(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
     }
 }
 
