@@ -26,10 +26,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.payments.R
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.cardregister.CardRegisterActivity
 import woowacourse.payments.ui.cardregister.CardRegisterActivity.Companion.KEY_NEW_CARD
@@ -92,7 +94,7 @@ fun CardsTopBar(
                         Modifier
                             .clickable { onCardAddClick() }
                             .padding(end = 20.dp),
-                    text = "추가",
+                    text = stringResource(R.string.register_card_button),
                 )
             }
         },
@@ -112,7 +114,7 @@ fun CardsScreenContent(
         when (cards.size) {
             0 -> {
                 Text(
-                    text = "새로운 카드를 등록해주세요.",
+                    text = stringResource(R.string.card_register_message),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(vertical = 32.dp),
@@ -142,7 +144,7 @@ fun RegisteredCards(
     ) {
         Spacer(modifier = Modifier.height(12.dp))
         cards.forEach { card ->
-            PaymentCard(modifier = modifier.padding(bottom = 36.dp), card = card)
+            PaymentCard(modifier = Modifier.padding(bottom = 36.dp), card = card)
         }
     }
 }
@@ -163,7 +165,7 @@ fun NewCard(
             tint = Gray57,
             modifier = Modifier.align(Alignment.Center),
             imageVector = Icons.Default.Add,
-            contentDescription = "카드 추가",
+            contentDescription = stringResource(R.string.card_register),
         )
     }
 }

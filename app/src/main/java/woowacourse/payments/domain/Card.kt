@@ -1,6 +1,7 @@
 package woowacourse.payments.domain
 
 import android.os.Parcelable
+import androidx.core.text.isDigitsOnly
 import kotlinx.parcelize.Parcelize
 import java.time.YearMonth
 
@@ -12,17 +13,28 @@ class Card private constructor(
     val password: String,
 ) : Parcelable {
     init {
-        require(cardNumber.length == 16) { IllegalArgumentException("카드번호는 16자입니다.") }
+        require(cardNumber.isDigitsOnly() && cardNumber.length == CARD_NUMBER_LENGTH) {
+            IllegalArgumentException("카드번호 오류")
+        }
         require(!expiryDate.isBefore(YearMonth.now())) {
-            IllegalArgumentException("올바르지 않은 만료일입니다.")
+            IllegalArgumentException("만료일 오류")
         }
         if (cardOwner != null) {
-            require(cardOwner.length <= 30) { IllegalArgumentException("카드 소유자 이름은 30자 이하입니다.") }
+            require(cardOwner.length <= CARD_OWNER_LENGTH) {
+                IllegalArgumentException("카드소유자이름 오류")
+            }
         }
-        require(password.length == 4) { IllegalArgumentException("비밀번호는 4자리입니다.") }
+        require(password.isDigitsOnly() && password.length == PASSWORD_LENGTH) {
+            IllegalArgumentException("비밀번호 오류")
+        }
     }
 
     companion object {
+        private const val CARD_NUMBER_LENGTH: Int = 16
+        private const val CARD_OWNER_LENGTH: Int = 30
+        private const val PASSWORD_LENGTH: Int = 4
+        private const val YEAR_OFFSET_2000: Int = 2000
+
         fun create(
             cardNumber: String,
             expiryDate: String?,
@@ -31,7 +43,7 @@ class Card private constructor(
         ): Result<Card> =
             runCatching {
                 val formattedYearMonth =
-                    expiryDate?.toYearMonth() ?: throw IllegalArgumentException("올바르지 않은 만료일입니다.")
+                    expiryDate?.toYearMonth() ?: throw IllegalArgumentException("만료일 날짜변환 오류")
 
                 Card(
                     cardNumber = cardNumber,
@@ -44,7 +56,11 @@ class Card private constructor(
         private fun String.toYearMonth(): YearMonth? {
             val year = substring(2, 4).toIntOrNull()
             val month = substring(0, 2).toIntOrNull()
-            return if (year == null || month == null) null else YearMonth.of(2000 + year, month)
+            return if (year == null || month == null) {
+                null
+            } else {
+                YearMonth.of(YEAR_OFFSET_2000 + year, month)
+            }
         }
     }
 }

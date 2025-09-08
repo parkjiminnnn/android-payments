@@ -62,9 +62,16 @@ fun CardRegisterScreen(
 
                     result
                         .onSuccess { card ->
-                            Toast.makeText(context, "카드가 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                            Toast
+                                .makeText(
+                                    context,
+                                    context.getString(R.string.card_register_complete_message),
+                                    Toast.LENGTH_SHORT,
+                                ).show()
                             onSaveClick(card)
-                        }.onFailure { throwable -> Log.e("TAG", "카드추가 실패: $throwable ") }
+                        }.onFailure { throwable ->
+                            Log.e("TAG", "카드추가 실패: ${throwable.message} ")
+                        }
                 },
             )
         },
@@ -102,7 +109,7 @@ fun NewCardTopBar(
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
-        title = { Text(stringResource(R.string.title_card_register)) },
+        title = { Text(stringResource(R.string.card_register)) },
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
                 Icon(
