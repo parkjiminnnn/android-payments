@@ -70,6 +70,12 @@ fun CardRegisterScreen(
                                 ).show()
                             onSaveClick(card)
                         }.onFailure { throwable ->
+                            Toast
+                                .makeText(
+                                    context,
+                                    context.getString(R.string.card_info_invalid_message),
+                                    Toast.LENGTH_SHORT,
+                                ).show()
                             Log.e("TAG", "카드추가 실패: ${throwable.message} ")
                         }
                 },
