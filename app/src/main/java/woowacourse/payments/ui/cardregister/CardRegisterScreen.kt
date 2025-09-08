@@ -1,6 +1,7 @@
 package woowacourse.payments.ui.cardregister
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,6 +41,7 @@ fun CardRegisterScreen(
     onBackClick: () -> Unit = {},
     onSaveClick: (Card) -> Unit = {},
 ) {
+    val context = LocalContext.current
     var cardNumber by remember { mutableStateOf("") }
     var expiryDate by remember { mutableStateOf("") }
     var cardOwner by remember { mutableStateOf("") }
@@ -58,8 +61,10 @@ fun CardRegisterScreen(
                         )
 
                     result
-                        .onSuccess { card -> onSaveClick(card) }
-                        .onFailure { throwable -> Log.e("TAG", "카드추가 실패: $throwable ") }
+                        .onSuccess { card ->
+                            Toast.makeText(context, "카드가 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                            onSaveClick(card)
+                        }.onFailure { throwable -> Log.e("TAG", "카드추가 실패: $throwable ") }
                 },
             )
         },
