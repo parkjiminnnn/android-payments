@@ -1,11 +1,15 @@
 package woowacourse.payments.ui.cards
 
+import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,29 +21,55 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import woowacourse.payments.domain.CardCount
-import woowacourse.payments.domain.Cards
+import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.cardregister.CardRegisterActivity
+import woowacourse.payments.ui.cardregister.CardRegisterActivity.Companion.KEY_NEW_CARD
+import woowacourse.payments.ui.component.PaymentCard
+import woowacourse.payments.ui.getParcelableExtraCompat
 import woowacourse.payments.ui.theme.Gray10
 import woowacourse.payments.ui.theme.Gray57
 
 @Composable
-fun CardsScreen(onCardAddClick: () -> Unit = {}) {
+fun CardsScreen() {
+    val cardsState = remember { mutableStateListOf<Card>() }
+    val intent = CardRegisterActivity.newIntent(LocalContext.current)
+
+    val launcher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { activityResult ->
+            if (activityResult.resultCode == Activity.RESULT_OK) {
+                val newCard =
+                    activityResult.data?.getParcelableExtraCompat<Card>(KEY_NEW_CARD)
+                        ?: return@rememberLauncherForActivityResult
+                cardsState.add(newCard)
+            }
+        }
+
     Scaffold(
         topBar = {
             CardsTopBar(
-                onCardAddClick = { onCardAddClick() },
+                onCardAddClick = { launcher.launch(intent) },
+                cards = cardsState,
             )
         },
         content = { innerPadding ->
             CardsScreenContent(
-                onCardAddClick = onCardAddClick,
-                paddingValues = innerPadding,
+                modifier =
+                    Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+                onCardAddClick = { launcher.launch(intent) },
+                cards = cardsState,
             )
         },
     )
@@ -48,14 +78,15 @@ fun CardsScreen(onCardAddClick: () -> Unit = {}) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardsTopBar(
-    onCardAddClick: () -> Unit,
     modifier: Modifier = Modifier,
+    cards: List<Card>,
+    onCardAddClick: () -> Unit,
 ) {
     CenterAlignedTopAppBar(
         title = { Text("Payments") },
         modifier = modifier,
         actions = {
-            if (Cards.getCount() != CardCount.MULTIPLE) {
+            if (cards.size > 1) {
                 Text(
                     modifier =
                         Modifier
@@ -70,19 +101,16 @@ fun CardsTopBar(
 
 @Composable
 fun CardsScreenContent(
-    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
     onCardAddClick: () -> Unit,
+    cards: List<Card>,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier =
-            modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
+        modifier = modifier,
     ) {
-        when (Cards.getCount()) {
-            CardCount.NONE -> {
+        when (cards.size) {
+            0 -> {
                 Text(
                     text = "새로운 카드를 등록해주세요.",
                     fontSize = 18.sp,
@@ -92,21 +120,30 @@ fun CardsScreenContent(
                 NewCard(onCardAddClick = onCardAddClick)
             }
 
-            CardCount.ONE -> {
-                RegisteredCards(modifier)
+            1 -> {
+                RegisteredCards(cards = cards)
                 NewCard(onCardAddClick = onCardAddClick)
             }
 
-            CardCount.MULTIPLE -> {
-                RegisteredCards(modifier)
+            else -> {
+                RegisteredCards(cards = cards)
             }
         }
     }
 }
 
 @Composable
-fun RegisteredCards(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+fun RegisteredCards(
+    modifier: Modifier = Modifier,
+    cards: List<Card>,
+) {
+    Column(
+        modifier = modifier,
+    ) {
+        Spacer(modifier = Modifier.height(12.dp))
+        cards.forEach { card ->
+            PaymentCard(modifier = modifier.padding(bottom = 36.dp), card = card)
+        }
     }
 }
 
