@@ -19,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.theme.Gray33
+import woowacourse.payments.ui.theme.Yellow64
 import java.time.format.DateTimeFormatter
 
 @Preview
@@ -33,7 +35,7 @@ fun PaymentCard(
                 .shadow(8.dp)
                 .size(width = 208.dp, height = 124.dp)
                 .background(
-                    color = Color(0xFF333333),
+                    color = Gray33,
                     shape = RoundedCornerShape(5.dp),
                 ).padding(16.dp),
     ) {
@@ -42,7 +44,7 @@ fun PaymentCard(
                 Modifier
                     .size(width = 40.dp, height = 26.dp)
                     .background(
-                        color = Color(0xFFCBBA64),
+                        color = Yellow64,
                         shape = RoundedCornerShape(4.dp),
                     ).align(Alignment.CenterStart),
         )
