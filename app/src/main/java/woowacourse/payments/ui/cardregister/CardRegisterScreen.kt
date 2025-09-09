@@ -148,9 +148,7 @@ fun CardNumberInputField(
         value = text,
         onValueChange = { newText ->
             val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) {
-                onValueChange(filteredText)
-            }
+            if (filteredText.length <= maxLength) onValueChange(filteredText)
         },
         label = { Text(stringResource(R.string.card_number_label)) },
         placeholder = {

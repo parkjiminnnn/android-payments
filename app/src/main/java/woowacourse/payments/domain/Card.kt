@@ -16,13 +16,9 @@ class Card private constructor(
         require(cardNumber.isDigitsOnly() && cardNumber.length == CARD_NUMBER_LENGTH) {
             IllegalArgumentException("카드번호 오류")
         }
-        require(!expiryDate.isBefore(YearMonth.now())) {
-            IllegalArgumentException("만료일 오류")
-        }
+        require(!expiryDate.isBefore(YearMonth.now())) { IllegalArgumentException("만료일 오류") }
         if (cardOwner != null) {
-            require(cardOwner.length <= CARD_OWNER_LENGTH) {
-                IllegalArgumentException("카드소유자이름 오류")
-            }
+            require(cardOwner.length <= CARD_OWNER_LENGTH) { IllegalArgumentException("카드소유자이름 오류") }
         }
         require(password.isDigitsOnly() && password.length == PASSWORD_LENGTH) {
             IllegalArgumentException("비밀번호 오류")
