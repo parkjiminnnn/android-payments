@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".ui.cardregister.CardRegisterActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="CardRegisterActivity"
             android:theme="@style/Theme.Androidpayments" />
     </application>
