@@ -176,7 +176,7 @@ fun ExpiryDateInputField(
             val filteredText = newText.filter { it.isDigit() }
             if (filteredText.length <= maxLength) onValueChange(filteredText)
         },
-        label = { Text(stringResource(R.string.expriy_date_label)) },
+        label = { Text(stringResource(R.string.expiry_date_label)) },
         placeholder = {
             Text(
                 text = stringResource(R.string.expiry_date_place_holder),

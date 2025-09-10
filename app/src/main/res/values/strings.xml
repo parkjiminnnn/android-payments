@@ -7,7 +7,7 @@
     <string name="card_owner_placeholder">카드에 표시된 이름을 입력하세요.</string>
     <string name="password_label">비밀번호</string>
     <string name="password_place_holder">0000</string>
-    <string name="expriy_date_label">만료일</string>
+    <string name="expiry_date_label">만료일</string>
     <string name="card_register">카드 추가</string>
     <string name="content_desc_back">뒤로 가기</string>
     <string name="content_desc_done">완료</string>
