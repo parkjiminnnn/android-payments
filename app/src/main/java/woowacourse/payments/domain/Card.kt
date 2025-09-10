@@ -45,8 +45,10 @@ class Card private constructor(
             }
 
         private fun String.toYearMonth(): YearMonth? {
+            if (length != 4) return null
             val year = substring(2, 4).toIntOrNull()
             val month = substring(0, 2).toIntOrNull()
+            if (month !in 1..12) return null
             return if (year == null || month == null) {
                 null
             } else {
