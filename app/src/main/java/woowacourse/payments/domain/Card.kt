@@ -12,16 +12,12 @@ class Card private constructor(
     val password: String,
 ) : Parcelable {
     init {
-        require(cardNumber.all { it.isDigit() } && cardNumber.length == CARD_NUMBER_LENGTH) {
-            IllegalArgumentException("카드번호 오류")
-        }
-        require(!expiryDate.isBefore(YearMonth.now())) { IllegalArgumentException("만료일 오류") }
+        require(cardNumber.all { it.isDigit() } && cardNumber.length == CARD_NUMBER_LENGTH) { "카드번호 오류" }
+        require(!expiryDate.isBefore(YearMonth.now())) { "만료일 오류" }
         if (cardOwner != null) {
-            require(cardOwner.length <= CARD_OWNER_LENGTH) { IllegalArgumentException("카드소유자이름 오류") }
+            require(cardOwner.length <= CARD_OWNER_LENGTH) { "카드소유자이름 오류" }
         }
-        require(password.all { it.isDigit() } && password.length == PASSWORD_LENGTH) {
-            IllegalArgumentException("비밀번호 오류")
-        }
+        require(password.all { it.isDigit() } && password.length == PASSWORD_LENGTH) { "비밀번호 오류" }
     }
 
     companion object {
