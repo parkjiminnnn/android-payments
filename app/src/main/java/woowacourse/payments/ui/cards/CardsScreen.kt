@@ -91,7 +91,7 @@ fun CardsTopBar(
     onCardAddClick: () -> Unit,
 ) {
     CenterAlignedTopAppBar(
-        title = { Text("Payments") },
+        title = { Text(stringResource(R.string.card_top_bar_title)) },
         modifier = modifier,
         actions = {
             if (cards.size > 1) {

@@ -17,4 +17,5 @@
     <string name="card_register_complete_message">카드가 추가되었습니다.</string>
     <string name="register_card_button">추가</string>
     <string name="card_info_invalid_message">카드 정보가 올바르지 않습니다.</string>
+    <string name="card_top_bar_title">Payments</string>
 </resources>
