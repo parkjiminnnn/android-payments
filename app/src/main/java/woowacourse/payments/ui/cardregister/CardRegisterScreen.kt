@@ -248,6 +248,6 @@ fun PasswordInputField(
 
 @Preview
 @Composable
-fun ShowCardRegisterScreenPreview() {
+private fun ShowCardRegisterScreenPreview() {
     CardRegisterScreen()
 }
