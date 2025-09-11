@@ -110,9 +110,9 @@ fun CardRegisterScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewCardTopBar(
+    modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     TopAppBar(
         title = { Text(stringResource(R.string.card_register)) },
