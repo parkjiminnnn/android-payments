@@ -43,7 +43,7 @@ import woowacourse.payments.ui.theme.Gray57
 @Composable
 fun CardsScreen() {
     val cardsState = remember { mutableStateListOf<Card>() }
-    val intent = CardRegisterActivity.newIntent(LocalContext.current)
+    val context = LocalContext.current
 
     val launcher =
         rememberLauncherForActivityResult(
@@ -60,7 +60,10 @@ fun CardsScreen() {
     Scaffold(
         topBar = {
             CardsTopBar(
-                onCardAddClick = { launcher.launch(intent) },
+                onCardAddClick = {
+                    val intent = CardRegisterActivity.newIntent(context)
+                    launcher.launch(intent)
+                },
                 cards = cardsState,
             )
         },
@@ -70,7 +73,10 @@ fun CardsScreen() {
                     Modifier
                         .padding(innerPadding)
                         .fillMaxSize(),
-                onCardAddClick = { launcher.launch(intent) },
+                onCardAddClick = {
+                    val intent = CardRegisterActivity.newIntent(context)
+                    launcher.launch(intent)
+                },
                 cards = cardsState,
             )
         },
