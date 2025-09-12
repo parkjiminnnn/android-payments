@@ -115,6 +115,7 @@ fun NewCardTopBar(
     onSaveClick: () -> Unit,
 ) {
     TopAppBar(
+        modifier = modifier,
         title = { Text(stringResource(R.string.card_register)) },
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
@@ -132,7 +133,6 @@ fun NewCardTopBar(
                 )
             }
         },
-        modifier = modifier,
     )
 }
 

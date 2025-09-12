@@ -74,8 +74,8 @@ fun CardInfo(
             fontSize = 12.sp,
         )
         Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = card.cardOwner ?: "",

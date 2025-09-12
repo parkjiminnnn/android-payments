@@ -64,8 +64,8 @@ fun CardsTopBar(
     onCardAddClick: () -> Unit,
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(stringResource(R.string.card_top_bar_title)) },
         modifier = modifier,
+        title = { Text(stringResource(R.string.card_top_bar_title)) },
         actions = {
             if (cards.size > 1) {
                 Text(
@@ -87,16 +87,16 @@ fun CardsScreenContent(
     cards: List<Card>,
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         when (cards.size) {
             0 -> {
                 Text(
+                    modifier = Modifier.padding(vertical = 32.dp),
                     text = stringResource(R.string.card_register_message),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(vertical = 32.dp),
                 )
                 NewCard(onCardAddClick = onCardAddClick)
             }
