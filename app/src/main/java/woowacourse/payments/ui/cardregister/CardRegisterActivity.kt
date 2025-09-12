@@ -16,7 +16,11 @@ class CardRegisterActivity : ComponentActivity() {
         setContent {
             AndroidpaymentsTheme {
                 CardRegisterScreen(onBackClick = { finish() }, onSaveClick = { card ->
-                    val intent = newIntent(this, card)
+                    val intent =
+                        Intent().apply {
+                            putExtra(KEY_NEW_CARD, card)
+                        }
+
                     setResult(RESULT_OK, intent)
                     finish()
                 })
