@@ -24,36 +24,22 @@ class Card private constructor(
         private const val CARD_NUMBER_LENGTH: Int = 16
         private const val CARD_OWNER_LENGTH: Int = 30
         private const val PASSWORD_LENGTH: Int = 4
-        private const val YEAR_OFFSET_2000: Int = 2000
 
         fun create(
             cardNumber: String,
-            expiryDate: String?,
+            expiryDate: YearMonth?,
             cardOwner: String?,
             password: String,
         ): Result<Card> =
             runCatching {
-                val formattedYearMonth =
-                    expiryDate?.toYearMonth() ?: throw IllegalArgumentException("만료일 날짜변환 오류")
+                expiryDate ?: throw IllegalArgumentException("만료일 날짜변환 오류")
 
                 Card(
                     cardNumber = cardNumber,
-                    expiryDate = formattedYearMonth,
+                    expiryDate = expiryDate,
                     cardOwner = cardOwner,
                     password = password,
                 )
             }
-
-        private fun String.toYearMonth(): YearMonth? {
-            if (length != 4) return null
-            val year = substring(2, 4).toIntOrNull()
-            val month = substring(0, 2).toIntOrNull()
-            if (month !in 1..12) return null
-            return if (year == null || month == null) {
-                null
-            } else {
-                YearMonth.of(YEAR_OFFSET_2000 + year, month)
-            }
-        }
     }
 }

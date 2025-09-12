@@ -12,6 +12,7 @@ import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.cards.CardsScreen
 import woowacourse.payments.ui.cards.CardsScreenContent
 import woowacourse.payments.ui.cards.CardsTopBar
+import java.time.YearMonth
 
 class CardsScreenTest {
     @get:Rule
@@ -35,7 +36,7 @@ class CardsScreenTest {
         val result =
             Card.create(
                 cardNumber = "1234567812345678",
-                expiryDate = "1234",
+                expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
             )
@@ -58,7 +59,7 @@ class CardsScreenTest {
         val result =
             Card.create(
                 cardNumber = "1234567812345678",
-                expiryDate = "1234",
+                expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
             )
@@ -83,7 +84,7 @@ class CardsScreenTest {
         val result =
             Card.create(
                 cardNumber = "1234567812345678",
-                expiryDate = "1234",
+                expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
             )
@@ -114,7 +115,7 @@ class CardsScreenTest {
         val result =
             Card.create(
                 cardNumber = "1234567812345678",
-                expiryDate = "1234",
+                expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
             )

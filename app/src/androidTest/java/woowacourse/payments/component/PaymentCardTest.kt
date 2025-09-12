@@ -8,6 +8,7 @@ import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.component.PaymentCard
+import java.time.YearMonth
 
 class PaymentCardTest {
     @get:Rule
@@ -19,7 +20,7 @@ class PaymentCardTest {
         val result =
             Card.create(
                 cardNumber = "1234567812345678",
-                expiryDate = "1234",
+                expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
             )

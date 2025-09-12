@@ -36,6 +36,7 @@ import woowacourse.payments.R
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.component.PaymentCard
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
+import java.time.YearMonth
 
 @Composable
 fun CardRegisterScreen(
@@ -56,7 +57,7 @@ fun CardRegisterScreen(
                     val result =
                         Card.create(
                             cardNumber = cardNumber,
-                            expiryDate = expiryDate,
+                            expiryDate = expiryDate.toYearMonth(),
                             cardOwner = cardOwner,
                             password = password,
                         )
@@ -252,5 +253,18 @@ fun PasswordInputField(
 private fun ShowCardRegisterScreenPreview() {
     AndroidpaymentsTheme {
         CardRegisterScreen()
+    }
+}
+
+fun String.toYearMonth(): YearMonth? {
+    val yearOffset = 2000
+    if (length != 4) return null
+    val year = substring(2, 4).toIntOrNull()
+    val month = substring(0, 2).toIntOrNull()
+    if (month !in 1..12) return null
+    return if (year == null || month == null) {
+        null
+    } else {
+        YearMonth.of(yearOffset + year, month)
     }
 }
