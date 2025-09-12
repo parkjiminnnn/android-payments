@@ -142,8 +142,8 @@ private fun NewCard(
                 .background(color = Gray10, shape = RoundedCornerShape(5.dp)),
     ) {
         Icon(
-            tint = Gray57,
             modifier = Modifier.align(Alignment.Center),
+            tint = Gray57,
             imageVector = Icons.Default.Add,
             contentDescription = stringResource(R.string.card_register),
         )
