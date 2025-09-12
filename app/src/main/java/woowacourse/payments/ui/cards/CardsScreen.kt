@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.component.PaymentCard
+import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 import woowacourse.payments.ui.theme.Gray10
 import woowacourse.payments.ui.theme.Gray57
 
@@ -152,5 +153,7 @@ fun NewCard(
 @Preview
 @Composable
 private fun ShowCardScreenPreview() {
-    CardsScreen()
+    AndroidpaymentsTheme {
+        CardsScreen()
+    }
 }

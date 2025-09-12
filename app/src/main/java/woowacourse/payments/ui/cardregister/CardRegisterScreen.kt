@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.component.PaymentCard
+import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 
 @Composable
 fun CardRegisterScreen(
@@ -249,5 +250,7 @@ fun PasswordInputField(
 @Preview
 @Composable
 private fun ShowCardRegisterScreenPreview() {
-    CardRegisterScreen()
+    AndroidpaymentsTheme {
+        CardRegisterScreen()
+    }
 }
