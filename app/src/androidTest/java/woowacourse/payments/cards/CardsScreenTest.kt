@@ -9,6 +9,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.cards.CardsScreen
 import woowacourse.payments.ui.cards.CardsScreenContent
 import woowacourse.payments.ui.cards.CardsTopBar
 
@@ -105,5 +106,38 @@ class CardsScreenTest {
         composeTestRule
             .onNodeWithText("뭉치")
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun `카드_추가_화면에_타이틀과_추가버튼과_등록된_카드가_보인다`() {
+        // given
+        val result =
+            Card.create(
+                cardNumber = "1234567812345678",
+                expiryDate = "1234",
+                cardOwner = "뭉치",
+                password = "1234",
+            )
+
+        // when
+        val card = result.getOrNull()
+
+        Assertions.assertNotNull(card)
+        composeTestRule.setContent {
+            CardsScreen(cardsState = listOf(card!!))
+        }
+
+        // then
+        composeTestRule
+            .onNodeWithText("1234 - 5678 - **** - ****")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("12/34")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("뭉치")
+            .assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("카드 추가").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Payments").assertIsDisplayed()
     }
 }
