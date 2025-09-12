@@ -1,8 +1,5 @@
 package woowacourse.payments.ui.cards
 
-import android.app.Activity
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -21,11 +18,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,37 +27,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
-import woowacourse.payments.ui.cardregister.CardRegisterActivity
-import woowacourse.payments.ui.cardregister.CardRegisterActivity.Companion.KEY_NEW_CARD
 import woowacourse.payments.ui.component.PaymentCard
-import woowacourse.payments.ui.getParcelableExtraCompat
 import woowacourse.payments.ui.theme.Gray10
 import woowacourse.payments.ui.theme.Gray57
 
 @Composable
-fun CardsScreen() {
-    val cardsState = remember { mutableStateListOf<Card>() }
-    val context = LocalContext.current
-
-    val launcher =
-        rememberLauncherForActivityResult(
-            ActivityResultContracts.StartActivityForResult(),
-        ) { activityResult ->
-            if (activityResult.resultCode == Activity.RESULT_OK) {
-                val newCard =
-                    activityResult.data?.getParcelableExtraCompat<Card>(KEY_NEW_CARD)
-                        ?: return@rememberLauncherForActivityResult
-                cardsState.add(newCard)
-            }
-        }
-
+fun CardsScreen(
+    cardsState: List<Card> = listOf(),
+    onCardAddClick: () -> Unit = {},
+) {
     Scaffold(
         topBar = {
             CardsTopBar(
-                onCardAddClick = {
-                    val intent = CardRegisterActivity.newIntent(context)
-                    launcher.launch(intent)
-                },
+                onCardAddClick = onCardAddClick,
                 cards = cardsState,
             )
         },
@@ -73,10 +49,7 @@ fun CardsScreen() {
                     Modifier
                         .padding(innerPadding)
                         .fillMaxSize(),
-                onCardAddClick = {
-                    val intent = CardRegisterActivity.newIntent(context)
-                    launcher.launch(intent)
-                },
+                onCardAddClick = onCardAddClick,
                 cards = cardsState,
             )
         },
