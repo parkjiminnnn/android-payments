@@ -59,7 +59,7 @@ fun CardsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardsTopBar(
+private fun CardsTopBar(
     modifier: Modifier = Modifier,
     cards: List<Card>,
     onCardAddClick: () -> Unit,
@@ -82,7 +82,7 @@ fun CardsTopBar(
 }
 
 @Composable
-fun CardsScreenContent(
+private fun CardsScreenContent(
     modifier: Modifier = Modifier,
     onCardAddClick: () -> Unit,
     cards: List<Card>,
@@ -115,7 +115,7 @@ fun CardsScreenContent(
 }
 
 @Composable
-fun RegisteredCards(
+private fun RegisteredCards(
     modifier: Modifier = Modifier,
     cards: List<Card>,
 ) {
@@ -130,7 +130,7 @@ fun RegisteredCards(
 }
 
 @Composable
-fun NewCard(
+private fun NewCard(
     modifier: Modifier = Modifier,
     onCardAddClick: () -> Unit,
 ) {

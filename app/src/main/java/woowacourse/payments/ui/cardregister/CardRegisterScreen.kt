@@ -111,7 +111,7 @@ fun CardRegisterScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewCardTopBar(
+private fun NewCardTopBar(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
@@ -139,7 +139,7 @@ fun NewCardTopBar(
 }
 
 @Composable
-fun CardNumberInputField(
+private fun CardNumberInputField(
     text: String,
     onValueChange: (String) -> Unit,
 ) {
@@ -165,7 +165,7 @@ fun CardNumberInputField(
 }
 
 @Composable
-fun ExpiryDateInputField(
+private fun ExpiryDateInputField(
     text: String,
     onValueChange: (String) -> Unit,
 ) {
@@ -191,7 +191,7 @@ fun ExpiryDateInputField(
 }
 
 @Composable
-fun CardOwnerInputField(
+private fun CardOwnerInputField(
     text: String,
     onValueChange: (String) -> Unit,
 ) {
@@ -223,7 +223,7 @@ fun CardOwnerInputField(
 }
 
 @Composable
-fun PasswordInputField(
+private fun PasswordInputField(
     text: String,
     onValueChange: (String) -> Unit,
 ) {

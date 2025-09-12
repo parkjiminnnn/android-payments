@@ -10,8 +10,6 @@ import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.cards.CardsScreen
-import woowacourse.payments.ui.cards.CardsScreenContent
-import woowacourse.payments.ui.cards.CardsTopBar
 import java.time.YearMonth
 
 class CardsScreenTest {
@@ -22,7 +20,7 @@ class CardsScreenTest {
     fun `등록된_카드가_0개이면_등록해주세요_문구와_카드추가_이미지버튼이_보인다`() {
         // given
         composeTestRule.setContent {
-            CardsScreenContent(cards = listOf(), onCardAddClick = {})
+            CardsScreen(cardsState = listOf())
         }
 
         // when & then
@@ -46,7 +44,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsTopBar(cards = listOf(card!!), onCardAddClick = {})
+            CardsScreen(cardsState = listOf(card!!))
         }
 
         // then
@@ -69,8 +67,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsTopBar(cards = listOf(card!!, card), onCardAddClick = {})
-            CardsScreenContent(cards = listOf(card, card), onCardAddClick = {})
+            CardsScreen(cardsState = listOf(card!!, card))
         }
 
         // then
@@ -94,7 +91,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsScreenContent(cards = listOf(card!!), onCardAddClick = {})
+            CardsScreen(cardsState = listOf(card!!))
         }
 
         // then
