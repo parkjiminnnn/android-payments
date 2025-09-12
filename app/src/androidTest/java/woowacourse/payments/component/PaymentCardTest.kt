@@ -43,4 +43,26 @@ class PaymentCardTest {
             .onNodeWithText("뭉치")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun `등록되지_않은_카드엔_카드정보가_없다`() {
+        // given
+        val card = null
+
+        // when
+        composeTestRule.setContent {
+            PaymentCard(card = card)
+        }
+
+        // then
+        composeTestRule
+            .onNodeWithText("1234 - 5678 - **** - ****")
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithText("12/34")
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithText("뭉치")
+            .assertDoesNotExist()
+    }
 }
