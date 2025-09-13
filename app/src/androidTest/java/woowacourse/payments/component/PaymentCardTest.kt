@@ -1,0 +1,69 @@
+package woowacourse.payments.component
+
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import org.junit.Rule
+import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.component.PaymentCard
+import java.time.YearMonth
+
+class PaymentCardTest {
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun `카드에_등록한_카드정보가_보인다`() {
+        // given
+        val result =
+            Card.create(
+                cardNumber = "1234567812345678",
+                expiryDate = YearMonth.of(2034, 12),
+                cardOwner = "뭉치",
+                password = "1234",
+            )
+
+        // when
+        val card = result.getOrNull()
+
+        Assertions.assertNotNull(card)
+        composeTestRule.setContent {
+            PaymentCard(card = card!!)
+        }
+
+        // then
+        composeTestRule
+            .onNodeWithText("1234 - 5678 - **** - ****")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("12/34")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("뭉치")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun `등록되지_않은_카드엔_카드정보가_없다`() {
+        // given
+        val card = null
+
+        // when
+        composeTestRule.setContent {
+            PaymentCard(card = card)
+        }
+
+        // then
+        composeTestRule
+            .onNodeWithText("1234 - 5678 - **** - ****")
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithText("12/34")
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithText("뭉치")
+            .assertDoesNotExist()
+    }
+}

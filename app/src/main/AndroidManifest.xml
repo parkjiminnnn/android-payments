@@ -11,24 +11,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidpayments">
         <activity
-            android:name=".ui.cardregister.CardRegisterActivity"
+            android:name=".ui.cards.CardsActivity"
             android:exported="true"
-            android:label="CardRegisterActivity"
+            android:label="CardsActivity"
             android:theme="@style/Theme.Androidpayments">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Androidpayments">
-
-        </activity>
+            android:name=".ui.cardregister.CardRegisterActivity"
+            android:exported="false"
+            android:label="CardRegisterActivity"
+            android:theme="@style/Theme.Androidpayments" />
     </application>
 
 </manifest>
