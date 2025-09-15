@@ -10,6 +10,7 @@ class Card private constructor(
     val expiryDate: YearMonth,
     val cardOwner: String? = null,
     val password: String,
+    val bankType: BankType,
 ) : Parcelable {
     init {
         require(cardNumber.all { it.isDigit() } && cardNumber.length == CARD_NUMBER_LENGTH) { "카드번호 오류" }
@@ -30,6 +31,7 @@ class Card private constructor(
             expiryDate: YearMonth?,
             cardOwner: String?,
             password: String,
+            bankType: BankType,
         ): Result<Card> =
             runCatching {
                 expiryDate ?: throw IllegalArgumentException("만료일 날짜변환 오류")
@@ -39,6 +41,7 @@ class Card private constructor(
                     expiryDate = expiryDate,
                     cardOwner = cardOwner,
                     password = password,
+                    bankType = bankType,
                 )
             }
     }
