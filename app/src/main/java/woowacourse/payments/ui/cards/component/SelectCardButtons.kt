@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
-import woowacourse.payments.ui.cardregister.BankViewType
+import woowacourse.payments.ui.BankViewType
 
 private const val COLUMN_COUNT: Int = 4
 

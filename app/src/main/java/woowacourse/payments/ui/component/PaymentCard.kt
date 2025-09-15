@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.domain.Card
-import woowacourse.payments.ui.cardregister.BankViewType
+import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.theme.Yellow64
 import java.time.format.DateTimeFormatter
 

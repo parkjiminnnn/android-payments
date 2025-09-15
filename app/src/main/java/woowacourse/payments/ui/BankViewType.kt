@@ -1,4 +1,4 @@
-package woowacourse.payments.ui.cardregister
+package woowacourse.payments.ui
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

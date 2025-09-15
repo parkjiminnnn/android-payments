@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import woowacourse.payments.R
+import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 
 class CardRegisterActivity : ComponentActivity() {

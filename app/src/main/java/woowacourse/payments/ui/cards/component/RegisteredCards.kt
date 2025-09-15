@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import woowacourse.payments.domain.Card
-import woowacourse.payments.ui.cardregister.toBankViewType
 import woowacourse.payments.ui.component.PaymentCard
+import woowacourse.payments.ui.toBankViewType
 
 @Composable
 fun RegisteredCards(

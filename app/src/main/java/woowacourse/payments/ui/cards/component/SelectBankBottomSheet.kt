@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import woowacourse.payments.ui.cardregister.BankViewType
+import woowacourse.payments.ui.BankViewType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

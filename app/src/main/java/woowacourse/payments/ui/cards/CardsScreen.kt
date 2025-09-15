@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
-import woowacourse.payments.ui.cardregister.BankViewType
+import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.cards.component.NewCard
 import woowacourse.payments.ui.cards.component.RegisteredCards
 import woowacourse.payments.ui.cards.component.SelectBankBottomSheet

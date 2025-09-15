@@ -29,12 +29,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.cardregister.component.CardNumberInputField
 import woowacourse.payments.ui.cardregister.component.CardOwnerInputField
 import woowacourse.payments.ui.cardregister.component.ExpiryDateInputField
 import woowacourse.payments.ui.cardregister.component.PasswordInputField
 import woowacourse.payments.ui.component.PaymentCard
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
+import woowacourse.payments.ui.toBankType
 import java.time.YearMonth
 
 @Composable
