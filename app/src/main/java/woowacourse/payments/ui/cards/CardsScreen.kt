@@ -1,21 +1,12 @@
 package woowacourse.payments.ui.cards
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,13 +24,10 @@ import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.cardregister.BankViewType
-import woowacourse.payments.ui.cardregister.SelectCardButtons
-import woowacourse.payments.ui.cardregister.toBankViewType
-import woowacourse.payments.ui.component.BottomSheet
-import woowacourse.payments.ui.component.PaymentCard
+import woowacourse.payments.ui.cards.component.NewCard
+import woowacourse.payments.ui.cards.component.RegisteredCards
+import woowacourse.payments.ui.cards.component.SelectBankBottomSheet
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
-import woowacourse.payments.ui.theme.Gray10
-import woowacourse.payments.ui.theme.Gray57
 
 @Composable
 fun CardsScreen(
@@ -67,23 +55,10 @@ fun CardsScreen(
                 },
                 cards = cardsState,
             )
-            BottomSheet(
+            SelectBankBottomSheet(
                 shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-                content = {
-                    Box(
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .height(342.dp),
-                        contentAlignment = Alignment.Center,
-                        content = {
-                            SelectCardButtons(onBankClick = { bankType ->
-                                showBottomSheet = false
-                                onCardAddClick(bankType)
-                            })
-                        },
-                    )
-                },
+                showBottomSheet = { showBottomSheet = it },
+                onCardAddClick = { bankViewType -> onCardAddClick(bankViewType) },
                 show = showBottomSheet,
                 onDismiss = { showBottomSheet = false },
             )
@@ -145,47 +120,6 @@ private fun CardsScreenContent(
                 RegisteredCards(cards = cards)
             }
         }
-    }
-}
-
-@Composable
-private fun RegisteredCards(
-    modifier: Modifier = Modifier,
-    cards: List<Card>,
-) {
-    Column(
-        modifier = modifier,
-    ) {
-        Spacer(modifier = Modifier.height(12.dp))
-        cards.forEach { card ->
-
-            PaymentCard(
-                bankViewType = card.bankType.toBankViewType(),
-                modifier = Modifier.padding(bottom = 36.dp),
-                card = card,
-            )
-        }
-    }
-}
-
-@Composable
-private fun NewCard(
-    modifier: Modifier = Modifier,
-    onCardAddClick: () -> Unit,
-) {
-    Box(
-        modifier =
-            modifier
-                .size(width = 208.dp, height = 124.dp)
-                .clickable { onCardAddClick() }
-                .background(color = Gray10, shape = RoundedCornerShape(5.dp)),
-    ) {
-        Icon(
-            modifier = Modifier.align(Alignment.Center),
-            tint = Gray57,
-            imageVector = Icons.Default.Add,
-            contentDescription = stringResource(R.string.card_register),
-        )
     }
 }
 

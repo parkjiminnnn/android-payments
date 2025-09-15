@@ -3,10 +3,8 @@ package woowacourse.payments.ui.cardregister
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -15,7 +13,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -26,14 +23,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.cardregister.component.CardNumberInputField
+import woowacourse.payments.ui.cardregister.component.CardOwnerInputField
+import woowacourse.payments.ui.cardregister.component.ExpiryDateInputField
+import woowacourse.payments.ui.cardregister.component.PasswordInputField
 import woowacourse.payments.ui.component.PaymentCard
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 import java.time.YearMonth
@@ -138,116 +137,6 @@ private fun NewCardTopBar(
                 )
             }
         },
-    )
-}
-
-@Composable
-private fun CardNumberInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 16
-
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = text,
-        onValueChange = { newText ->
-            val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
-        },
-        label = { Text(stringResource(R.string.card_number_label)) },
-        placeholder = {
-            Text(
-                text = stringResource(R.string.card_number_place_holder),
-                color = Color.Gray,
-            )
-        },
-        visualTransformation = CardNumberVisualTransformation(),
-        singleLine = true,
-    )
-}
-
-@Composable
-private fun ExpiryDateInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 4
-
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(0.5f),
-        value = text,
-        onValueChange = { newText ->
-            val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
-        },
-        label = { Text(stringResource(R.string.expiry_date_label)) },
-        placeholder = {
-            Text(
-                text = stringResource(R.string.expiry_date_place_holder),
-                color = Color.Gray,
-            )
-        },
-        visualTransformation = ExpiryDateVisualTransformation(),
-        singleLine = true,
-    )
-}
-
-@Composable
-private fun CardOwnerInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 30
-
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = text,
-        onValueChange = { filteredText ->
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
-        },
-        label = { Text(stringResource(R.string.card_owner_label)) },
-        placeholder = {
-            Text(
-                text = stringResource(R.string.card_owner_placeholder),
-                color = Color.Gray,
-            )
-        },
-        singleLine = true,
-        supportingText = {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Spacer(Modifier.weight(1f))
-                Text(
-                    stringResource(R.string.card_owner_length, text.length),
-                )
-            }
-        },
-    )
-}
-
-@Composable
-private fun PasswordInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 4
-
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(0.5f),
-        value = text,
-        onValueChange = { newText ->
-            val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
-        },
-        label = { Text(stringResource(R.string.password_label)) },
-        placeholder = {
-            Text(
-                text = stringResource(R.string.password_place_holder),
-                color = Color.Gray,
-            )
-        },
-        visualTransformation = PasswordVisualTransformation(),
-        singleLine = true,
     )
 }
 

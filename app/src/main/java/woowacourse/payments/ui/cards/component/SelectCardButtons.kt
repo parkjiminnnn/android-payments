@@ -1,4 +1,4 @@
-package woowacourse.payments.ui.cardregister
+package woowacourse.payments.ui.cards.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
+import woowacourse.payments.ui.cardregister.BankViewType
 
 private const val COLUMN_COUNT: Int = 4
 
@@ -66,7 +67,7 @@ private fun SelectBankButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowSelectCardButton() {
+private fun ShowSelectCardButtonPreview() {
     SelectBankButton(imageRes = R.drawable.img_bc, nameRes = R.string.bc_card, onClick = {})
 }
 

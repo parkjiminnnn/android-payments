@@ -71,7 +71,7 @@ fun PaymentCard(
 }
 
 @Composable
-fun CardInfo(
+private fun CardInfo(
     modifier: Modifier = Modifier,
     card: Card,
 ) {
