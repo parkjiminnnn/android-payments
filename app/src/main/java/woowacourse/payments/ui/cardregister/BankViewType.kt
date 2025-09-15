@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import woowacourse.payments.R
+import woowacourse.payments.domain.BankType
 import woowacourse.payments.ui.theme.Black80
 import woowacourse.payments.ui.theme.Blue60
 import woowacourse.payments.ui.theme.Blue80
@@ -27,3 +28,27 @@ enum class BankViewType(
     HANA(R.drawable.img_hana, R.string.hana_card, Teal80),
     KOOKMIN(R.drawable.img_kookmin, R.string.kookmin_card, Brown80),
 }
+
+fun BankType.toBankViewType(): BankViewType =
+    when (this) {
+        BankType.BC -> BankViewType.BC
+        BankType.SHINHAN -> BankViewType.SHINHAN
+        BankType.KAKAO -> BankViewType.KAKAO
+        BankType.HYUNDAI -> BankViewType.HYUNDAI
+        BankType.WOORI -> BankViewType.WOORI
+        BankType.LOTTE -> BankViewType.LOTTE
+        BankType.HANA -> BankViewType.HANA
+        BankType.KOOKMIN -> BankViewType.KOOKMIN
+    }
+
+fun BankViewType.toBankType(): BankType =
+    when (this) {
+        BankViewType.BC -> BankType.BC
+        BankViewType.SHINHAN -> BankType.SHINHAN
+        BankViewType.KAKAO -> BankType.KAKAO
+        BankViewType.HYUNDAI -> BankType.HYUNDAI
+        BankViewType.WOORI -> BankType.WOORI
+        BankViewType.LOTTE -> BankType.LOTTE
+        BankViewType.HANA -> BankType.HANA
+        BankViewType.KOOKMIN -> BankType.KOOKMIN
+    }

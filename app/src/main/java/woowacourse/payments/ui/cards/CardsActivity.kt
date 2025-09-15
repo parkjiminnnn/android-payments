@@ -34,8 +34,8 @@ class CardsActivity : ComponentActivity() {
                     }
                 CardsScreen(
                     cardsState,
-                    onCardAddClick = {
-                        val intent = CardRegisterActivity.newIntent(this)
+                    onCardAddClick = { bankViewType ->
+                        val intent = CardRegisterActivity.newIntent(this, bankViewType)
                         launcher.launch(intent)
                     },
                 )

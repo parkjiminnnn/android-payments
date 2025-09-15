@@ -40,8 +40,9 @@ import java.time.YearMonth
 
 @Composable
 fun CardRegisterScreen(
-    onBackClick: () -> Unit = {},
-    onSaveClick: (Card) -> Unit = {},
+    bankViewType: BankViewType,
+    onBackClick: () -> Unit,
+    onSaveClick: (Card) -> Unit,
 ) {
     val context = LocalContext.current
     var cardNumber by rememberSaveable { mutableStateOf("") }
@@ -60,6 +61,7 @@ fun CardRegisterScreen(
                             expiryDate = expiryDate.toYearMonth(),
                             cardOwner = cardOwner,
                             password = password,
+                            bankType = bankViewType.toBankType(),
                         )
 
                     result
@@ -92,6 +94,7 @@ fun CardRegisterScreen(
                         .padding(horizontal = 24.dp),
             ) {
                 PaymentCard(
+                    bankViewType = bankViewType,
                     modifier =
                         Modifier
                             .padding(top = 14.dp, bottom = 40.dp)
@@ -252,7 +255,11 @@ private fun PasswordInputField(
 @Composable
 private fun ShowCardRegisterScreenPreview() {
     AndroidpaymentsTheme {
-        CardRegisterScreen()
+        CardRegisterScreen(
+            bankViewType = BankViewType.BC,
+            onBackClick = { },
+            onSaveClick = { },
+        )
     }
 }
 

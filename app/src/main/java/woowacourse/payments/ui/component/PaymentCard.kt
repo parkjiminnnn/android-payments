@@ -15,19 +15,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.domain.Card
-import woowacourse.payments.ui.theme.Gray33
+import woowacourse.payments.ui.cardregister.BankViewType
 import woowacourse.payments.ui.theme.Yellow64
 import java.time.format.DateTimeFormatter
 
-@Preview
 @Composable
 fun PaymentCard(
     modifier: Modifier = Modifier,
     card: Card? = null,
+    bankViewType: BankViewType,
 ) {
     Box(
         modifier =
@@ -35,10 +37,17 @@ fun PaymentCard(
                 .shadow(8.dp)
                 .size(width = 208.dp, height = 124.dp)
                 .background(
-                    color = Gray33,
+                    color = bankViewType.cardColor,
                     shape = RoundedCornerShape(5.dp),
                 ).padding(16.dp),
     ) {
+        Text(
+            modifier = Modifier.align(alignment = Alignment.TopStart),
+            text = stringResource(bankViewType.nameRes),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+        )
         Box(
             modifier =
                 Modifier
@@ -98,3 +107,9 @@ fun String.formatCardNumber(): String =
         .mapIndexed { index, s ->
             if (index < 2) s else "****"
         }.joinToString(" - ")
+
+@Preview
+@Composable
+private fun ShowPaymentCardPreview() {
+    PaymentCard(bankViewType = BankViewType.BC)
+}

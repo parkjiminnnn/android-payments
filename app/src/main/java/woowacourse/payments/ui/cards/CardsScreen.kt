@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,6 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
+import woowacourse.payments.ui.cardregister.BankViewType
+import woowacourse.payments.ui.cardregister.SelectCardButtons
+import woowacourse.payments.ui.cardregister.toBankViewType
+import woowacourse.payments.ui.component.BottomSheet
 import woowacourse.payments.ui.component.PaymentCard
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 import woowacourse.payments.ui.theme.Gray10
@@ -35,12 +44,15 @@ import woowacourse.payments.ui.theme.Gray57
 @Composable
 fun CardsScreen(
     cardsState: List<Card> = listOf(),
-    onCardAddClick: () -> Unit = {},
+    onCardAddClick: (BankViewType) -> Unit,
 ) {
+    var showBottomSheet by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             CardsTopBar(
-                onCardAddClick = onCardAddClick,
+                onCardAddClick = {
+                    showBottomSheet = true
+                },
                 cards = cardsState,
             )
         },
@@ -50,8 +62,30 @@ fun CardsScreen(
                     Modifier
                         .padding(innerPadding)
                         .fillMaxSize(),
-                onCardAddClick = onCardAddClick,
+                onCardAddClick = {
+                    showBottomSheet = true
+                },
                 cards = cardsState,
+            )
+            BottomSheet(
+                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                content = {
+                    Box(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(342.dp),
+                        contentAlignment = Alignment.Center,
+                        content = {
+                            SelectCardButtons(onBankClick = { bankType ->
+                                showBottomSheet = false
+                                onCardAddClick(bankType)
+                            })
+                        },
+                    )
+                },
+                show = showBottomSheet,
+                onDismiss = { showBottomSheet = false },
             )
         },
     )
@@ -124,7 +158,12 @@ private fun RegisteredCards(
     ) {
         Spacer(modifier = Modifier.height(12.dp))
         cards.forEach { card ->
-            PaymentCard(modifier = Modifier.padding(bottom = 36.dp), card = card)
+
+            PaymentCard(
+                bankViewType = card.bankType.toBankViewType(),
+                modifier = Modifier.padding(bottom = 36.dp),
+                card = card,
+            )
         }
     }
 }
@@ -154,6 +193,6 @@ private fun NewCard(
 @Composable
 private fun ShowCardScreenPreview() {
     AndroidpaymentsTheme {
-        CardsScreen()
+        CardsScreen(onCardAddClick = {})
     }
 }
