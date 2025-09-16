@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
+import woowacourse.payments.domain.BankType
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.cards.CardsScreen
 import java.time.YearMonth
@@ -20,7 +21,7 @@ class CardsScreenTest {
     fun `등록된_카드가_0개이면_등록해주세요_문구와_카드추가_이미지버튼이_보인다`() {
         // given
         composeTestRule.setContent {
-            CardsScreen(cardsState = listOf())
+            CardsScreen(cardsState = listOf(), onCardAddClick = { })
         }
 
         // when & then
@@ -37,6 +38,7 @@ class CardsScreenTest {
                 expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
+                bankType = BankType.BC,
             )
 
         // when
@@ -44,7 +46,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsScreen(cardsState = listOf(card!!))
+            CardsScreen(cardsState = listOf(card!!), onCardAddClick = { })
         }
 
         // then
@@ -60,6 +62,7 @@ class CardsScreenTest {
                 expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
+                bankType = BankType.BC,
             )
 
         // when
@@ -67,7 +70,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsScreen(cardsState = listOf(card!!, card))
+            CardsScreen(cardsState = listOf(card!!, card), onCardAddClick = { })
         }
 
         // then
@@ -84,6 +87,7 @@ class CardsScreenTest {
                 expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
+                bankType = BankType.BC,
             )
 
         // when
@@ -91,7 +95,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsScreen(cardsState = listOf(card!!))
+            CardsScreen(cardsState = listOf(card!!), onCardAddClick = { })
         }
 
         // then
@@ -115,6 +119,7 @@ class CardsScreenTest {
                 expiryDate = YearMonth.of(2034, 12),
                 cardOwner = "뭉치",
                 password = "1234",
+                bankType = BankType.BC,
             )
 
         // when
@@ -122,7 +127,7 @@ class CardsScreenTest {
 
         Assertions.assertNotNull(card)
         composeTestRule.setContent {
-            CardsScreen(cardsState = listOf(card!!))
+            CardsScreen(cardsState = listOf(card!!), onCardAddClick = { })
         }
 
         // then

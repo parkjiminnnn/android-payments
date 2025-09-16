@@ -9,6 +9,7 @@ import androidx.compose.ui.test.performTextInput
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.cardregister.CardRegisterScreen
 
 class CardRegisterScreenTest {
@@ -18,12 +19,16 @@ class CardRegisterScreenTest {
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            CardRegisterScreen()
+            CardRegisterScreen(
+                bankViewType = BankViewType.BC,
+                onBackClick = { },
+                onSaveClick = { },
+            )
         }
     }
 
     @Test
-    fun 카드번호를_입력하면_하이픈이_4자리마다_추가된다() {
+    fun `카드번호를_입력하면_하이픈이_4자리마다_추가된다`() {
         // given
         val cardNumberField = composeTestRule.onNode(hasText("카드 번호") and hasSetTextAction())
 
@@ -37,7 +42,7 @@ class CardRegisterScreenTest {
     }
 
     @Test
-    fun 카드번호는_숫자만_입력_가능하다() {
+    fun `카드번호는_숫자만_입력_가능하다`() {
         // given
         val cardNumberField = composeTestRule.onNode(hasText("카드 번호") and hasSetTextAction())
 
@@ -51,7 +56,7 @@ class CardRegisterScreenTest {
     }
 
     @Test
-    fun 만료일_입력시_구분자가_추가된다() {
+    fun `만료일_입력시_구분자가_추가된다`() {
         // given
         val expiryDateField = composeTestRule.onNode(hasText("만료일") and hasSetTextAction())
 
@@ -65,7 +70,7 @@ class CardRegisterScreenTest {
     }
 
     @Test
-    fun 만료일은_숫자만_입력_가능하다() {
+    fun `만료일은_숫자만_입력_가능하다`() {
         // given
         val expiryDateField = composeTestRule.onNode(hasText("만료일") and hasSetTextAction())
 
@@ -79,7 +84,7 @@ class CardRegisterScreenTest {
     }
 
     @Test
-    fun 카드_소유자_이름의_길이는_30자_이하이다() {
+    fun `카드_소유자_이름의_길이는_30자_이하이다`() {
         // given
         val cardOwnerField = composeTestRule.onNode(hasText("카드 소유자 이름(선택)") and hasSetTextAction())
 
@@ -94,7 +99,7 @@ class CardRegisterScreenTest {
     }
 
     @Test
-    fun 카드_소유자_이름의_길이가_표시된다() {
+    fun `카드_소유자_이름의_길이가_표시된다`() {
         // given
         val cardOwnerField = composeTestRule.onNode(hasText("카드 소유자 이름(선택)") and hasSetTextAction())
 
@@ -119,7 +124,7 @@ class CardRegisterScreenTest {
     }
 
     @Test
-    fun 비밀번호는_숫자만_입력_가능하다() {
+    fun `비밀번호는_숫자만_입력_가능하다`() {
         // given
         val passwordField = composeTestRule.onNode(hasText("비밀번호") and hasSetTextAction())
 
