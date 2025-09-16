@@ -25,6 +25,7 @@ fun SelectBankBottomSheet(
     containerColor: Color = Color.White,
     onBankSelectClick: (BankViewType) -> Unit,
     sheetState: SheetState,
+    onBackClick: () -> Unit,
 ) {
     ModalBottomSheet(
         modifier = modifier,
@@ -44,7 +45,7 @@ fun SelectBankBottomSheet(
                 },
             )
         },
-        onDismissRequest = { },
+        onDismissRequest = { onBackClick() },
         sheetState = sheetState,
     )
 }
@@ -58,5 +59,6 @@ private fun ShowBottomSheetPreview() {
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         onBankSelectClick = {},
         sheetState = rememberModalBottomSheetState(),
+        onBackClick = {},
     )
 }
