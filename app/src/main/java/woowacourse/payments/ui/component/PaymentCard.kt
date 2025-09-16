@@ -37,7 +37,7 @@ fun PaymentCard(
                 .shadow(8.dp)
                 .size(width = 208.dp, height = 124.dp)
                 .background(
-                    color = bankViewType.cardColor,
+                    color = bankViewType.color,
                     shape = RoundedCornerShape(5.dp),
                 ).padding(16.dp),
     ) {

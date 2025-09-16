@@ -1,6 +1,5 @@
 package woowacourse.payments.ui.cardregister
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -90,14 +89,13 @@ fun CardRegisterScreen(
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             onSaveClick(card)
-                        }.onFailure { throwable ->
+                        }.onFailure {
                             Toast
                                 .makeText(
                                     context,
                                     context.getString(R.string.card_info_invalid_message),
                                     Toast.LENGTH_SHORT,
                                 ).show()
-                            Log.e("TAG", "카드추가 실패: ${throwable.message} ")
                         }
                 },
             )
@@ -132,6 +130,7 @@ fun CardRegisterScreen(
                         selectedBankViewType = it
                     },
                     sheetState = modalBottomSheetState,
+                    onDismissRequest = onBackClick,
                 )
             }
         },

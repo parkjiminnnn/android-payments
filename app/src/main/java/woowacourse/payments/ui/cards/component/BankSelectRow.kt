@@ -32,13 +32,13 @@ fun BankSelectRow(
         verticalArrangement = Arrangement.spacedBy(23.dp),
         maxItemsInEachRow = COLUMN_COUNT,
     ) {
-        BankViewType.entries.forEach { bankType ->
-            if (bankType != BankViewType.NONE) {
+        BankViewType.entries.forEach { bankViewType ->
+            if (bankViewType.nameRes != null && bankViewType.imageRes != null) {
                 BankSelectionButton(
-                    imageRes = bankType.imageRes!!,
-                    nameRes = bankType.nameRes!!,
-                    onClick = { onBankClick(bankType) },
-                    contentDescription = bankType.name,
+                    imageRes = bankViewType.imageRes,
+                    nameRes = bankViewType.nameRes,
+                    onClick = { onBankClick(bankViewType) },
+                    contentDescription = bankViewType.name,
                 )
             }
         }

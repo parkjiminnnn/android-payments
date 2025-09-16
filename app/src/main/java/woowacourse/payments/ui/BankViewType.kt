@@ -18,7 +18,7 @@ import woowacourse.payments.ui.theme.Yellow80
 enum class BankViewType(
     @DrawableRes val imageRes: Int?,
     @StringRes val nameRes: Int?,
-    val cardColor: Color,
+    val color: Color,
 ) {
     BC(R.drawable.img_bc, R.string.bc_card, Red80),
     SHINHAN(R.drawable.img_shinhan, R.string.shinhan_card, Blue80),
