@@ -33,12 +33,14 @@ fun BankSelectRow(
         maxItemsInEachRow = COLUMN_COUNT,
     ) {
         BankViewType.entries.forEach { bankType ->
-            BankSelectionButton(
-                imageRes = bankType.imageRes,
-                nameRes = bankType.nameRes,
-                onClick = { onBankClick(bankType) },
-                contentDescription = bankType.name,
-            )
+            if (bankType != BankViewType.NONE) {
+                BankSelectionButton(
+                    imageRes = bankType.imageRes!!,
+                    nameRes = bankType.nameRes!!,
+                    onClick = { onBankClick(bankType) },
+                    contentDescription = bankType.name,
+                )
+            }
         }
     }
 }

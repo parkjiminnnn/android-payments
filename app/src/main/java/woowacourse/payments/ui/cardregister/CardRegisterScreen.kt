@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -16,7 +17,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -34,14 +37,15 @@ import woowacourse.payments.ui.cardregister.component.CardNumberInputField
 import woowacourse.payments.ui.cardregister.component.CardOwnerInputField
 import woowacourse.payments.ui.cardregister.component.ExpiryDateInputField
 import woowacourse.payments.ui.cardregister.component.PasswordInputField
+import woowacourse.payments.ui.cards.component.SelectBankBottomSheet
 import woowacourse.payments.ui.component.PaymentCard
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 import woowacourse.payments.ui.toBankType
 import java.time.YearMonth
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardRegisterScreen(
-    bankViewType: BankViewType,
     onBackClick: () -> Unit,
     onSaveClick: (Card) -> Unit,
 ) {
@@ -50,6 +54,18 @@ fun CardRegisterScreen(
     var expiryDate by rememberSaveable { mutableStateOf("") }
     var cardOwner by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    var selectedBankViewType by rememberSaveable { mutableStateOf(BankViewType.NONE) }
+
+    val modalBottomSheetState =
+        rememberModalBottomSheetState(
+            confirmValueChange = { false },
+        )
+
+    LaunchedEffect(selectedBankViewType) {
+        if (selectedBankViewType != BankViewType.NONE) {
+            modalBottomSheetState.hide()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -62,7 +78,7 @@ fun CardRegisterScreen(
                             expiryDate = expiryDate.toYearMonth(),
                             cardOwner = cardOwner,
                             password = password,
-                            bankType = bankViewType.toBankType(),
+                            bankType = selectedBankViewType.toBankType(),
                         )
 
                     result
@@ -95,7 +111,7 @@ fun CardRegisterScreen(
                         .padding(horizontal = 24.dp),
             ) {
                 PaymentCard(
-                    bankViewType = bankViewType,
+                    bankViewType = selectedBankViewType,
                     modifier =
                         Modifier
                             .padding(top = 14.dp, bottom = 40.dp)
@@ -108,6 +124,15 @@ fun CardRegisterScreen(
                 CardOwnerInputField(text = cardOwner, onValueChange = { cardOwner = it })
                 Spacer(modifier = Modifier.height(10.dp))
                 PasswordInputField(text = password, onValueChange = { password = it })
+            }
+            if (selectedBankViewType == BankViewType.NONE) {
+                SelectBankBottomSheet(
+                    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                    onBankSelectClick = {
+                        selectedBankViewType = it
+                    },
+                    sheetState = modalBottomSheetState,
+                )
             }
         },
     )
@@ -147,7 +172,6 @@ private fun NewCardTopBar(
 private fun ShowCardRegisterScreenPreview() {
     AndroidpaymentsTheme {
         CardRegisterScreen(
-            bankViewType = BankViewType.BC,
             onBackClick = { },
             onSaveClick = { },
         )

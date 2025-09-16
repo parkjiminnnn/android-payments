@@ -43,7 +43,7 @@ fun PaymentCard(
     ) {
         Text(
             modifier = Modifier.align(alignment = Alignment.TopStart),
-            text = stringResource(bankViewType.nameRes),
+            text = bankViewType.nameRes?.let { stringResource(it) } ?: "",
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,

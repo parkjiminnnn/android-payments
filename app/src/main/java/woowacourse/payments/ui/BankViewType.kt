@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import woowacourse.payments.R
 import woowacourse.payments.domain.BankType
+import woowacourse.payments.ui.theme.Black33
 import woowacourse.payments.ui.theme.Black80
 import woowacourse.payments.ui.theme.Blue60
 import woowacourse.payments.ui.theme.Blue80
@@ -15,8 +16,8 @@ import woowacourse.payments.ui.theme.Teal80
 import woowacourse.payments.ui.theme.Yellow80
 
 enum class BankViewType(
-    @DrawableRes val imageRes: Int,
-    @StringRes val nameRes: Int,
+    @DrawableRes val imageRes: Int?,
+    @StringRes val nameRes: Int?,
     val cardColor: Color,
 ) {
     BC(R.drawable.img_bc, R.string.bc_card, Red80),
@@ -27,6 +28,7 @@ enum class BankViewType(
     LOTTE(R.drawable.img_lotte, R.string.lotte_card, Red60),
     HANA(R.drawable.img_hana, R.string.hana_card, Teal80),
     KOOKMIN(R.drawable.img_kookmin, R.string.kookmin_card, Brown80),
+    NONE(null, null, Black33),
 }
 
 fun BankType.toBankViewType(): BankViewType =
@@ -39,6 +41,7 @@ fun BankType.toBankViewType(): BankViewType =
         BankType.LOTTE -> BankViewType.LOTTE
         BankType.HANA -> BankViewType.HANA
         BankType.KOOKMIN -> BankViewType.KOOKMIN
+        BankType.NONE -> BankViewType.NONE
     }
 
 fun BankViewType.toBankType(): BankType =
@@ -51,4 +54,5 @@ fun BankViewType.toBankType(): BankType =
         BankViewType.LOTTE -> BankType.LOTTE
         BankViewType.HANA -> BankType.HANA
         BankViewType.KOOKMIN -> BankType.KOOKMIN
+        BankViewType.NONE -> BankType.NONE
     }

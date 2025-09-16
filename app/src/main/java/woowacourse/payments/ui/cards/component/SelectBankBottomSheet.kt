@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,45 +23,40 @@ fun SelectBankBottomSheet(
     modifier: Modifier = Modifier,
     shape: Shape,
     containerColor: Color = Color.White,
-    showBottomSheet: (Boolean) -> Unit,
-    onCardAddClick: (BankViewType) -> Unit,
-    show: Boolean,
-    onDismiss: () -> Unit,
+    onBankSelectClick: (BankViewType) -> Unit,
+    sheetState: SheetState,
 ) {
-    if (show) {
-        ModalBottomSheet(
-            modifier = modifier,
-            shape = shape,
-            containerColor = containerColor,
-            content = {
-                Box(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(342.dp),
-                    contentAlignment = Alignment.Center,
-                    content = {
-                        BankSelectRow(onBankClick = { bankType ->
-                            showBottomSheet(false)
-                            onCardAddClick(bankType)
-                        })
-                    },
-                )
-            },
-            onDismissRequest = onDismiss,
-        )
-    }
+    ModalBottomSheet(
+        modifier = modifier,
+        shape = shape,
+        containerColor = containerColor,
+        content = {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(342.dp),
+                contentAlignment = Alignment.Center,
+                content = {
+                    BankSelectRow(onBankClick = { bankType ->
+                        onBankSelectClick(bankType)
+                    })
+                },
+            )
+        },
+        onDismissRequest = { },
+        sheetState = sheetState,
+    )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun ShowBottomSheetPreview() {
     SelectBankBottomSheet(
         modifier = Modifier.height(342.dp),
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-        show = true,
-        onDismiss = {},
-        showBottomSheet = {},
-        onCardAddClick = {},
+        onBankSelectClick = {},
+        sheetState = rememberModalBottomSheetState(),
     )
 }

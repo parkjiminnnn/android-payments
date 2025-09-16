@@ -4,16 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,24 +18,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.payments.R
 import woowacourse.payments.domain.Card
-import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.cards.component.NewCard
 import woowacourse.payments.ui.cards.component.RegisteredCards
-import woowacourse.payments.ui.cards.component.SelectBankBottomSheet
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 
 @Composable
 fun CardsScreen(
     cardsState: List<Card> = listOf(),
-    onCardAddClick: (BankViewType) -> Unit,
+    onCardAddClick: () -> Unit,
 ) {
-    var showBottomSheet by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             CardsTopBar(
-                onCardAddClick = {
-                    showBottomSheet = true
-                },
+                onCardAddClick = onCardAddClick,
                 cards = cardsState,
             )
         },
@@ -50,17 +40,8 @@ fun CardsScreen(
                     Modifier
                         .padding(innerPadding)
                         .fillMaxSize(),
-                onCardAddClick = {
-                    showBottomSheet = true
-                },
+                onCardAddClick = onCardAddClick,
                 cards = cardsState,
-            )
-            SelectBankBottomSheet(
-                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-                showBottomSheet = { showBottomSheet = it },
-                onCardAddClick = { bankViewType -> onCardAddClick(bankViewType) },
-                show = showBottomSheet,
-                onDismiss = { showBottomSheet = false },
             )
         },
     )

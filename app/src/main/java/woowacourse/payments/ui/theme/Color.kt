@@ -22,6 +22,7 @@ val Red80 = Color(0xFFF04652)
 val Blue60 = Color(0xFF027BC8)
 val Blue80 = Color(0xFF0046FF)
 
+val Black33 = Color(0xFF333333)
 val Black80 = Color(0xFF000000)
 
 val Teal80 = Color(0xFF009490)
