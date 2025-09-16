@@ -60,7 +60,12 @@ class PaymentCardTest {
         val card = null
 
         // when
-        composeTestRule.setContent { PaymentCard(card = card, bankViewType = BankViewType.BC) }
+        composeTestRule.setContent {
+            PaymentCard(
+                card = card,
+                bankViewType = BankViewType.BC,
+            )
+        }
 
         // then
         composeTestRule

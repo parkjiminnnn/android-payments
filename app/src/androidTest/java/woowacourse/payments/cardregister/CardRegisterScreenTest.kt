@@ -9,7 +9,6 @@ import androidx.compose.ui.test.performTextInput
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.payments.ui.BankViewType
 import woowacourse.payments.ui.cardregister.CardRegisterScreen
 
 class CardRegisterScreenTest {
@@ -20,7 +19,6 @@ class CardRegisterScreenTest {
     fun setUp() {
         composeTestRule.setContent {
             CardRegisterScreen(
-                bankViewType = BankViewType.BC,
                 onBackClick = { },
                 onSaveClick = { },
             )

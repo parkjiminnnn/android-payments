@@ -21,10 +21,10 @@ import woowacourse.payments.ui.BankViewType
 @Composable
 fun SelectBankBottomSheet(
     modifier: Modifier = Modifier,
+    sheetState: SheetState = rememberModalBottomSheetState(),
     shape: Shape,
     containerColor: Color = Color.White,
     onBankSelectClick: (BankViewType) -> Unit,
-    sheetState: SheetState,
     onDismissRequest: () -> Unit,
 ) {
     ModalBottomSheet(
@@ -58,7 +58,6 @@ private fun ShowBottomSheetPreview() {
         modifier = Modifier.height(342.dp),
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         onBankSelectClick = {},
-        sheetState = rememberModalBottomSheetState(),
         onDismissRequest = {},
     )
 }
