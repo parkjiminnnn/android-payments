@@ -22,7 +22,7 @@ import woowacourse.payments.ui.BankViewType
 private const val COLUMN_COUNT: Int = 4
 
 @Composable
-fun SelectBankButtons(
+fun BankSelectRow(
     modifier: Modifier = Modifier,
     onBankClick: (BankViewType) -> Unit,
 ) {
@@ -33,7 +33,7 @@ fun SelectBankButtons(
         maxItemsInEachRow = COLUMN_COUNT,
     ) {
         BankViewType.entries.forEach { bankType ->
-            SelectBankButton(
+            BankSelectionButton(
                 imageRes = bankType.imageRes,
                 nameRes = bankType.nameRes,
                 onClick = { onBankClick(bankType) },
@@ -44,7 +44,7 @@ fun SelectBankButtons(
 }
 
 @Composable
-private fun SelectBankButton(
+private fun BankSelectionButton(
     modifier: Modifier = Modifier,
     imageRes: Int,
     nameRes: Int,
@@ -70,7 +70,7 @@ private fun SelectBankButton(
 @Preview(showBackground = true)
 @Composable
 private fun ShowSelectCardButtonPreview() {
-    SelectBankButton(
+    BankSelectionButton(
         imageRes = R.drawable.img_bc,
         nameRes = R.string.bc_card,
         onClick = {},
@@ -81,5 +81,5 @@ private fun ShowSelectCardButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun ShowSelectCardButtonsPreview() {
-    SelectBankButtons(onBankClick = {})
+    BankSelectRow(onBankClick = {})
 }
