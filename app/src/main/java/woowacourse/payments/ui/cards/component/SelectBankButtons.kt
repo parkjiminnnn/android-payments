@@ -37,6 +37,7 @@ fun SelectBankButtons(
                 imageRes = bankType.imageRes,
                 nameRes = bankType.nameRes,
                 onClick = { onBankClick(bankType) },
+                contentDescription = bankType.name,
             )
         }
     }
@@ -47,6 +48,7 @@ private fun SelectBankButton(
     modifier: Modifier = Modifier,
     imageRes: Int,
     nameRes: Int,
+    contentDescription: String,
     onClick: () -> Unit,
 ) {
     Column(
@@ -59,7 +61,7 @@ private fun SelectBankButton(
         Image(
             modifier = Modifier.size(40.dp),
             painter = painterResource(imageRes),
-            contentDescription = null,
+            contentDescription = contentDescription,
         )
         Text(text = stringResource(nameRes), fontSize = 16.sp, lineHeight = 20.sp)
     }
@@ -68,7 +70,12 @@ private fun SelectBankButton(
 @Preview(showBackground = true)
 @Composable
 private fun ShowSelectCardButtonPreview() {
-    SelectBankButton(imageRes = R.drawable.img_bc, nameRes = R.string.bc_card, onClick = {})
+    SelectBankButton(
+        imageRes = R.drawable.img_bc,
+        nameRes = R.string.bc_card,
+        onClick = {},
+        contentDescription = "",
+    )
 }
 
 @Preview(showBackground = true)
