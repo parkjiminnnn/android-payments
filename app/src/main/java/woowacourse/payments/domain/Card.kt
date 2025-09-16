@@ -19,7 +19,7 @@ class Card private constructor(
             require(cardOwner.length <= CARD_OWNER_LENGTH) { "카드소유자이름 오류" }
         }
         require(password.all { it.isDigit() } && password.length == PASSWORD_LENGTH) { "비밀번호 오류" }
-        require(bankType == BankType.NONE) { "카드사 선택 오류" }
+        require(bankType != BankType.NONE) { "카드사 선택 오류" }
     }
 
     companion object {
