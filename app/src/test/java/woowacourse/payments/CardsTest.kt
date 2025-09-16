@@ -104,8 +104,8 @@ class CardsTest {
     }
 
     @ParameterizedTest
-    @EnumSource(BankType::class)
-    fun `정의된 은행타입만으로 카드를 생성할 수 있다`(bankType: BankType) {
+    @EnumSource(value = BankType::class, names = ["NONE"], mode = EnumSource.Mode.EXCLUDE)
+    fun `은행타입을 선택해야 카드를 생성할 수 있다`(bankType: BankType) {
         // given
         val result =
             Card.create(
@@ -118,5 +118,21 @@ class CardsTest {
 
         // when & then
         assertDoesNotThrow { result.getOrThrow() }
+    }
+
+    @Test
+    fun `은행을 선택하지 않으면 예외가 발생한다`() {
+        // given
+        val result =
+            Card.create(
+                cardNumber = "1234567812345678",
+                expiryDate = YearMonth.of(2034, 12),
+                cardOwner = "뭉치",
+                password = "1234",
+                bankType = BankType.NONE,
+            )
+
+        // when & then
+        assertThrows<IllegalArgumentException> { result.getOrThrow() }
     }
 }
