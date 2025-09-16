@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import woowacourse.payments.R
 import woowacourse.payments.ui.BankViewType
+import woowacourse.payments.ui.getSerializableExtraCompat
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 
 class CardRegisterActivity : ComponentActivity() {
@@ -16,16 +17,17 @@ class CardRegisterActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val bankViewType =
-            intent.getSerializableExtra(KEY_BANK_VIEW_TYPE) as? BankViewType ?: run {
-                Toast
-                    .makeText(
-                        this,
-                        getString(R.string.error_invalid_bank_message),
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                finish()
-                return
-            }
+            intent.getSerializableExtraCompat(KEY_BANK_VIEW_TYPE) as? BankViewType
+                ?: run {
+                    Toast
+                        .makeText(
+                            this,
+                            getString(R.string.error_invalid_bank_message),
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    finish()
+                    return
+                }
 
         setContent {
             AndroidpaymentsTheme {
