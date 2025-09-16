@@ -11,7 +11,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.payments.R
 import woowacourse.payments.ui.theme.Gray10
@@ -26,6 +28,7 @@ fun NewCard(
         modifier =
             modifier
                 .size(width = 208.dp, height = 124.dp)
+                .shadow(8.dp)
                 .clickable { onCardAddClick() }
                 .background(color = Gray10, shape = RoundedCornerShape(5.dp)),
     ) {
@@ -36,4 +39,10 @@ fun NewCard(
             contentDescription = stringResource(R.string.card_register),
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ShowNewCardPreview() {
+    NewCard { }
 }
