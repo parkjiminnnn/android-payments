@@ -39,7 +39,7 @@ fun SelectBankBottomSheet(
                             .height(342.dp),
                     contentAlignment = Alignment.Center,
                     content = {
-                        SelectCardButtons(onBankClick = { bankType ->
+                        SelectBankButtons(onBankClick = { bankType ->
                             showBottomSheet(false)
                             onCardAddClick(bankType)
                         })

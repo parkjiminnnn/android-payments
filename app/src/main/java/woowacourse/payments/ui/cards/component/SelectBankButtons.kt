@@ -22,7 +22,7 @@ import woowacourse.payments.ui.BankViewType
 private const val COLUMN_COUNT: Int = 4
 
 @Composable
-fun SelectCardButtons(
+fun SelectBankButtons(
     modifier: Modifier = Modifier,
     onBankClick: (BankViewType) -> Unit,
 ) {
@@ -74,5 +74,5 @@ private fun ShowSelectCardButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun ShowSelectCardButtonsPreview() {
-    SelectCardButtons(onBankClick = {})
+    SelectBankButtons(onBankClick = {})
 }
