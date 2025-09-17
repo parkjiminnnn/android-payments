@@ -2,6 +2,7 @@ package woowacourse.payments.ui.cardregister
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,10 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -42,29 +40,13 @@ import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 import woowacourse.payments.ui.toBankType
 import java.time.YearMonth
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardRegisterScreen(
     onBackClick: () -> Unit,
     onSaveClick: (Card) -> Unit,
 ) {
     val context = LocalContext.current
-    var cardNumber by rememberSaveable { mutableStateOf("") }
-    var expiryDate by rememberSaveable { mutableStateOf("") }
-    var cardOwner by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
-    var selectedBankViewType by rememberSaveable { mutableStateOf(BankViewType.NONE) }
-
-    val modalBottomSheetState =
-        rememberModalBottomSheetState(
-            confirmValueChange = { false },
-        )
-
-    LaunchedEffect(selectedBankViewType) {
-        if (selectedBankViewType != BankViewType.NONE) {
-            modalBottomSheetState.hide()
-        }
-    }
+    val stateHolder = remember { CardRegisterStateHolder() }
 
     Scaffold(
         topBar = {
@@ -73,11 +55,11 @@ fun CardRegisterScreen(
                 onSaveClick = {
                     val result =
                         Card.create(
-                            cardNumber = cardNumber,
-                            expiryDate = expiryDate.toYearMonth(),
-                            cardOwner = cardOwner,
-                            password = password,
-                            bankType = selectedBankViewType.toBankType(),
+                            cardNumber = stateHolder.cardNumber.value,
+                            expiryDate = stateHolder.expiryDate.value.toYearMonth(),
+                            cardOwner = stateHolder.cardOwner.value,
+                            password = stateHolder.password.value,
+                            bankType = stateHolder.selectedBankViewType.value.toBankType(),
                         )
 
                     result
@@ -101,38 +83,7 @@ fun CardRegisterScreen(
             )
         },
         content = { innerPadding ->
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                        .padding(horizontal = 24.dp),
-            ) {
-                PaymentCard(
-                    bankViewType = selectedBankViewType,
-                    modifier =
-                        Modifier
-                            .padding(top = 14.dp, bottom = 40.dp)
-                            .align(Alignment.CenterHorizontally),
-                )
-                CardNumberInputField(text = cardNumber, onValueChange = { cardNumber = it })
-                Spacer(modifier = Modifier.height(30.dp))
-                ExpiryDateInputField(text = expiryDate, onValueChange = { expiryDate = it })
-                Spacer(modifier = Modifier.height(30.dp))
-                CardOwnerInputField(text = cardOwner, onValueChange = { cardOwner = it })
-                Spacer(modifier = Modifier.height(10.dp))
-                PasswordInputField(text = password, onValueChange = { password = it })
-            }
-            if (selectedBankViewType == BankViewType.NONE) {
-                SelectBankBottomSheet(
-                    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-                    onBankSelectClick = {
-                        selectedBankViewType = it
-                    },
-                    sheetState = modalBottomSheetState,
-                    onDismissRequest = onBackClick,
-                )
-            }
+            CardRegisterContent(innerPadding, stateHolder, onBackClick)
         },
     )
 }
@@ -166,6 +117,73 @@ private fun NewCardTopBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CardRegisterContent(
+    innerPadding: PaddingValues,
+    stateHolder: CardRegisterStateHolder,
+    onBackClick: () -> Unit,
+) {
+    val modalBottomSheetState =
+        rememberModalBottomSheetState(
+            confirmValueChange = { false },
+        )
+
+    LaunchedEffect(stateHolder.selectedBankViewType) {
+        if (stateHolder.selectedBankViewType.value != BankViewType.NONE) {
+            modalBottomSheetState.hide()
+        }
+    }
+
+    Column(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 24.dp),
+    ) {
+        PaymentCard(
+            bankViewType = stateHolder.selectedBankViewType.value,
+            modifier =
+                Modifier
+                    .padding(top = 14.dp, bottom = 40.dp)
+                    .align(Alignment.CenterHorizontally),
+        )
+        CardNumberInputField(
+            text = stateHolder.cardNumber.value,
+            onValueChange = { stateHolder.onChange(stateHolder.cardNumber, it) },
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        ExpiryDateInputField(
+            text = stateHolder.expiryDate.value,
+            onValueChange = { stateHolder.onChange(stateHolder.expiryDate, it) },
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        CardOwnerInputField(
+            text = stateHolder.cardOwner.value,
+            onValueChange = { stateHolder.onChange(stateHolder.cardOwner, it) },
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        PasswordInputField(
+            text = stateHolder.password.value,
+            onValueChange = { stateHolder.onChange(stateHolder.password, it) },
+        )
+    }
+    if (stateHolder.selectedBankViewType.value == BankViewType.NONE) {
+        SelectBankBottomSheet(
+            shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+            onBankSelectClick = {
+                stateHolder.onChange(
+                    stateHolder.selectedBankViewType,
+                    it,
+                )
+            },
+            sheetState = modalBottomSheetState,
+            onDismissRequest = onBackClick,
+        )
+    }
+}
+
 @Preview
 @Composable
 private fun ShowCardRegisterScreenPreview() {
@@ -177,7 +195,7 @@ private fun ShowCardRegisterScreenPreview() {
     }
 }
 
-fun String.toYearMonth(): YearMonth? {
+private fun String.toYearMonth(): YearMonth? {
     val yearOffset = 2000
     if (length != 4) return null
     val year = substring(2, 4).toIntOrNull()
