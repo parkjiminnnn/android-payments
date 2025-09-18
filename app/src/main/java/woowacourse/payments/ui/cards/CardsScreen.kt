@@ -97,9 +97,7 @@ private fun CardsScreenContent(
                 NewCard(onCardAddClick = onCardAddClick)
             }
 
-            else -> {
-                RegisteredCards(cards = cards)
-            }
+            else -> RegisteredCards(cards = cards)
         }
     }
 }
