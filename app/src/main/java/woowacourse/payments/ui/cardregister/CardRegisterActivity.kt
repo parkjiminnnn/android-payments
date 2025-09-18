@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 
 class CardRegisterActivity : ComponentActivity() {
@@ -17,18 +18,20 @@ class CardRegisterActivity : ComponentActivity() {
             AndroidpaymentsTheme {
                 CardRegisterScreen(
                     onBackClick = { finish() },
-                    onSaveClick = { card ->
-                        val intent =
-                            Intent().apply {
-                                putExtra(KEY_NEW_CARD, card)
-                            }
-
-                        setResult(RESULT_OK, intent)
-                        finish()
-                    },
+                    onSaveClick = { card -> navigateToCards(card) },
                 )
             }
         }
+    }
+
+    private fun navigateToCards(card: Card) {
+        val intent =
+            Intent().apply {
+                putExtra(KEY_NEW_CARD, card)
+            }
+
+        setResult(RESULT_OK, intent)
+        finish()
     }
 
     companion object {
