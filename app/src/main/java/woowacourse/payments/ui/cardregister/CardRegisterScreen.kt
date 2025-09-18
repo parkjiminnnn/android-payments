@@ -55,11 +55,11 @@ fun CardRegisterScreen(
                 onSaveClick = {
                     val result =
                         Card.create(
-                            cardNumber = stateHolder.cardNumber.value,
-                            expiryDate = stateHolder.expiryDate.value.toYearMonth(),
-                            cardOwner = stateHolder.cardOwner.value,
-                            password = stateHolder.password.value,
-                            bankType = stateHolder.selectedBankViewType.value.toBankType(),
+                            cardNumber = stateHolder.cardNumber,
+                            expiryDate = stateHolder.expiryDate.toYearMonth(),
+                            cardOwner = stateHolder.cardOwner,
+                            password = stateHolder.password,
+                            bankType = stateHolder.selectedBankViewType.toBankType(),
                         )
 
                     result
@@ -130,7 +130,7 @@ private fun CardRegisterContent(
         )
 
     LaunchedEffect(stateHolder.selectedBankViewType) {
-        if (stateHolder.selectedBankViewType.value != BankViewType.NONE) {
+        if (stateHolder.selectedBankViewType != BankViewType.NONE) {
             modalBottomSheetState.hide()
         }
     }
@@ -143,40 +143,25 @@ private fun CardRegisterContent(
                 .padding(horizontal = 24.dp),
     ) {
         PaymentCard(
-            bankViewType = stateHolder.selectedBankViewType.value,
+            bankViewType = stateHolder.selectedBankViewType,
             modifier =
                 Modifier
                     .padding(top = 14.dp, bottom = 40.dp)
                     .align(Alignment.CenterHorizontally),
         )
-        CardNumberInputField(
-            text = stateHolder.cardNumber.value,
-            onValueChange = { stateHolder.onChange(stateHolder.cardNumber, it) },
-        )
+        CardNumberInputField(stateHolder = stateHolder)
         Spacer(modifier = Modifier.height(30.dp))
-        ExpiryDateInputField(
-            text = stateHolder.expiryDate.value,
-            onValueChange = { stateHolder.onChange(stateHolder.expiryDate, it) },
-        )
+        ExpiryDateInputField(stateHolder = stateHolder)
         Spacer(modifier = Modifier.height(30.dp))
-        CardOwnerInputField(
-            text = stateHolder.cardOwner.value,
-            onValueChange = { stateHolder.onChange(stateHolder.cardOwner, it) },
-        )
+        CardOwnerInputField(stateHolder = stateHolder)
         Spacer(modifier = Modifier.height(10.dp))
-        PasswordInputField(
-            text = stateHolder.password.value,
-            onValueChange = { stateHolder.onChange(stateHolder.password, it) },
-        )
+        PasswordInputField(stateHolder = stateHolder)
     }
-    if (stateHolder.selectedBankViewType.value == BankViewType.NONE) {
+    if (stateHolder.selectedBankViewType == BankViewType.NONE) {
         SelectBankBottomSheet(
             shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
             onBankSelectClick = {
-                stateHolder.onChange(
-                    stateHolder.selectedBankViewType,
-                    it,
-                )
+                stateHolder.onSelectedBankViewTypeChange(it)
             },
             sheetState = modalBottomSheetState,
             onDismissRequest = onBackClick,

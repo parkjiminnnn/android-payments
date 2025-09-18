@@ -11,21 +11,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.payments.R
+import woowacourse.payments.ui.cardregister.CardRegisterStateHolder
 import woowacourse.payments.ui.cardregister.ExpiryDateVisualTransformation
 
 @Composable
-fun ExpiryDateInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 4
-
+fun ExpiryDateInputField(stateHolder: CardRegisterStateHolder) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(0.5f),
-        value = text,
+        value = stateHolder.expiryDate,
         onValueChange = { newText ->
-            val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
+            stateHolder.onExpiryDateChange(newText)
         },
         label = { Text(stringResource(R.string.expiry_date_label)) },
         placeholder = {
@@ -37,11 +32,12 @@ fun ExpiryDateInputField(
         visualTransformation = ExpiryDateVisualTransformation(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        isError = stateHolder.isExpiryDateError,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ShowExpiryDateInputFieldPreview() {
-    ExpiryDateInputField(text = "1234") { }
+    ExpiryDateInputField(stateHolder = CardRegisterStateHolder())
 }

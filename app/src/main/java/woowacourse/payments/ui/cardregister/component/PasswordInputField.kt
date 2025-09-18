@@ -12,20 +12,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.payments.R
+import woowacourse.payments.ui.cardregister.CardRegisterStateHolder
 
 @Composable
-fun PasswordInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 4
-
+fun PasswordInputField(stateHolder: CardRegisterStateHolder) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(0.5f),
-        value = text,
+        value = stateHolder.password,
         onValueChange = { newText ->
-            val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
+            stateHolder.onPasswordChange(newText)
         },
         label = { Text(stringResource(R.string.password_label)) },
         placeholder = {
@@ -37,11 +32,12 @@ fun PasswordInputField(
         visualTransformation = PasswordVisualTransformation(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        isError = stateHolder.isPasswordError,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ShowPasswordInputFieldPreview() {
-    PasswordInputField(text = "1234") { }
+    PasswordInputField(stateHolder = CardRegisterStateHolder())
 }

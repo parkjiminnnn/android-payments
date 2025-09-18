@@ -11,19 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.payments.R
+import woowacourse.payments.ui.cardregister.CardRegisterStateHolder
 
 @Composable
-fun CardOwnerInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 30
-
+fun CardOwnerInputField(stateHolder: CardRegisterStateHolder) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        value = text,
-        onValueChange = { filteredText ->
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
+        value = stateHolder.cardOwner,
+        onValueChange = { newText ->
+            stateHolder.onCardOwnerChange(newText)
         },
         label = { Text(stringResource(R.string.card_owner_label)) },
         placeholder = {
@@ -37,15 +33,16 @@ fun CardOwnerInputField(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(Modifier.weight(1f))
                 Text(
-                    stringResource(R.string.card_owner_length, text.length),
+                    stringResource(R.string.card_owner_length, stateHolder.cardOwner.length),
                 )
             }
         },
+        isError = stateHolder.isCardOwnerError,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ShowCardOwnerInputFieldPreview() {
-    CardOwnerInputField(text = "햄스터") {}
+    CardOwnerInputField(stateHolder = CardRegisterStateHolder())
 }

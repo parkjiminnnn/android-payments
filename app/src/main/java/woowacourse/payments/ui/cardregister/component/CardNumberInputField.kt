@@ -12,20 +12,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.payments.R
 import woowacourse.payments.ui.cardregister.CardNumberVisualTransformation
+import woowacourse.payments.ui.cardregister.CardRegisterStateHolder
 
 @Composable
-fun CardNumberInputField(
-    text: String,
-    onValueChange: (String) -> Unit,
-) {
-    val maxLength = 16
-
+fun CardNumberInputField(stateHolder: CardRegisterStateHolder) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        value = text,
+        value = stateHolder.cardNumber,
         onValueChange = { newText ->
-            val filteredText = newText.filter { it.isDigit() }
-            if (filteredText.length <= maxLength) onValueChange(filteredText)
+            stateHolder.onCardNumberChange(newText)
         },
         label = { Text(stringResource(R.string.card_number_label)) },
         placeholder = {
@@ -37,11 +32,12 @@ fun CardNumberInputField(
         visualTransformation = CardNumberVisualTransformation(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        isError = stateHolder.isCardNumberError,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ShowCardNumberInputFieldPreview() {
-    CardNumberInputField(text = "1234567812345678") {}
+    CardNumberInputField(stateHolder = CardRegisterStateHolder())
 }
