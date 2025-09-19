@@ -9,7 +9,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.mutableStateListOf
 import woowacourse.payments.domain.Card
 import woowacourse.payments.ui.cardregister.CardRegisterActivity
 import woowacourse.payments.ui.cardregister.CardRegisterActivity.Companion.KEY_NEW_CARD
@@ -17,7 +16,7 @@ import woowacourse.payments.ui.getParcelableExtraCompat
 import woowacourse.payments.ui.theme.AndroidpaymentsTheme
 
 class CardsActivity : ComponentActivity() {
-    private val cardsState = mutableStateListOf<Card>()
+    private val stateHolder = CardsStateHolder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,7 @@ class CardsActivity : ComponentActivity() {
                     ) { activityResult -> updateCardsViewFromCardRegister(activityResult) }
 
                 CardsScreen(
-                    cardsState,
+                    stateHolder,
                     onCardAddClick = { navigateToCardRegister(launcher) },
                 )
             }
@@ -42,7 +41,7 @@ class CardsActivity : ComponentActivity() {
             val newCard =
                 activityResult.data?.getParcelableExtraCompat<Card>(KEY_NEW_CARD)
                     ?: return
-            cardsState.add(newCard)
+            stateHolder.cardsState.add(newCard)
         }
     }
 
