@@ -11,17 +11,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.payments.R
-import woowacourse.payments.ui.cardregister.CardRegisterStateHolder
 import woowacourse.payments.ui.cardregister.ExpiryDateVisualTransformation
 
 @Composable
-fun ExpiryDateInputField(stateHolder: CardRegisterStateHolder) {
+fun ExpiryDateInputField(
+    text: String,
+    onValueChange: (String) -> Unit,
+    isError: Boolean,
+) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(0.5f),
-        value = stateHolder.expiryDate,
-        onValueChange = { newText ->
-            stateHolder.onExpiryDateChange(newText)
-        },
+        value = text,
+        onValueChange = onValueChange,
         label = { Text(stringResource(R.string.expiry_date_label)) },
         placeholder = {
             Text(
@@ -32,12 +33,16 @@ fun ExpiryDateInputField(stateHolder: CardRegisterStateHolder) {
         visualTransformation = ExpiryDateVisualTransformation(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        isError = stateHolder.isExpiryDateError,
+        isError = isError,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ShowExpiryDateInputFieldPreview() {
-    ExpiryDateInputField(stateHolder = CardRegisterStateHolder())
+    ExpiryDateInputField(
+        text = "",
+        onValueChange = { },
+        isError = false,
+    )
 }

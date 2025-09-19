@@ -12,16 +12,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.payments.R
 import woowacourse.payments.ui.cardregister.CardNumberVisualTransformation
-import woowacourse.payments.ui.cardregister.CardRegisterStateHolder
 
 @Composable
-fun CardNumberInputField(stateHolder: CardRegisterStateHolder) {
+fun CardNumberInputField(
+    text: String,
+    onValueChange: (String) -> Unit,
+    isError: Boolean,
+) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        value = stateHolder.cardNumber,
-        onValueChange = { newText ->
-            stateHolder.onCardNumberChange(newText)
-        },
+        value = text,
+        onValueChange = onValueChange,
         label = { Text(stringResource(R.string.card_number_label)) },
         placeholder = {
             Text(
@@ -32,12 +33,16 @@ fun CardNumberInputField(stateHolder: CardRegisterStateHolder) {
         visualTransformation = CardNumberVisualTransformation(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        isError = stateHolder.isCardNumberError,
+        isError = isError,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ShowCardNumberInputFieldPreview() {
-    CardNumberInputField(stateHolder = CardRegisterStateHolder())
+    CardNumberInputField(
+        text = "",
+        onValueChange = { },
+        isError = false,
+    )
 }

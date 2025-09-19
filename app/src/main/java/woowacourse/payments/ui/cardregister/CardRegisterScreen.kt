@@ -149,13 +149,29 @@ private fun CardRegisterContent(
                     .padding(top = 14.dp, bottom = 40.dp)
                     .align(Alignment.CenterHorizontally),
         )
-        CardNumberInputField(stateHolder = stateHolder)
+        CardNumberInputField(
+            text = stateHolder.cardNumber,
+            onValueChange = { newText -> stateHolder.onCardNumberChange(newText) },
+            isError = stateHolder.isCardNumberError,
+        )
         Spacer(modifier = Modifier.height(30.dp))
-        ExpiryDateInputField(stateHolder = stateHolder)
+        ExpiryDateInputField(
+            text = stateHolder.expiryDate,
+            onValueChange = { newText -> stateHolder.onExpiryDateChange(newText) },
+            isError = stateHolder.isExpiryDateError,
+        )
         Spacer(modifier = Modifier.height(30.dp))
-        CardOwnerInputField(stateHolder = stateHolder)
+        CardOwnerInputField(
+            text = stateHolder.cardOwner,
+            onValueChange = { newText -> stateHolder.onCardOwnerChange(newText) },
+            isError = stateHolder.isCardOwnerError,
+        )
         Spacer(modifier = Modifier.height(10.dp))
-        PasswordInputField(stateHolder = stateHolder)
+        PasswordInputField(
+            text = stateHolder.password,
+            onValueChange = { newText -> stateHolder.onPasswordChange(newText) },
+            isError = stateHolder.isPasswordError,
+        )
     }
     if (stateHolder.selectedBankViewType == BankViewType.NONE) {
         SelectBankBottomSheet(
