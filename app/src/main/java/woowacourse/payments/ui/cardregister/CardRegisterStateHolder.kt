@@ -54,7 +54,7 @@ class CardRegisterStateHolder {
 
     fun onPasswordChange(newValue: String) {
         val filteredText = newValue.filter { it.isDigit() }
-        if (filteredText.length <= PASSWORD_MAX_LENGTH) password = newValue
+        if (filteredText.length <= PASSWORD_MAX_LENGTH) password = filteredText
     }
 
     fun onSelectedBankViewTypeChange(newValue: BankViewType) {
