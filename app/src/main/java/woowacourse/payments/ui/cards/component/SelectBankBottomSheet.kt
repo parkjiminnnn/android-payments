@@ -20,12 +20,12 @@ import woowacourse.payments.ui.BankViewType
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectBankBottomSheet(
-    modifier: Modifier = Modifier,
-    sheetState: SheetState = rememberModalBottomSheetState(),
-    shape: Shape,
-    containerColor: Color = Color.White,
     onBankSelectClick: (BankViewType) -> Unit,
     onDismissRequest: () -> Unit,
+    shape: Shape,
+    modifier: Modifier = Modifier,
+    sheetState: SheetState = rememberModalBottomSheetState(),
+    containerColor: Color = Color.White,
 ) {
     ModalBottomSheet(
         modifier = modifier,
