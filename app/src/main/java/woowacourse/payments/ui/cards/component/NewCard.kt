@@ -43,6 +43,6 @@ fun NewCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowNewCardPreview() {
+private fun NewCardPreview() {
     NewCard { }
 }

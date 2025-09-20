@@ -105,7 +105,7 @@ private fun CardsScreenContent(
 
 @Preview
 @Composable
-private fun ShowCardScreenPreview() {
+private fun CardScreenPreview() {
     AndroidpaymentsTheme {
         CardsScreen(stateHolder = CardsStateHolder(), onCardAddClick = {})
     }

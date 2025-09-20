@@ -73,7 +73,7 @@ private fun BankSelectionButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowSelectCardButtonPreview() {
+private fun SelectCardButtonPreview() {
     BankSelectionButton(
         imageRes = R.drawable.img_bc,
         nameRes = R.string.bc_card,
@@ -84,6 +84,6 @@ private fun ShowSelectCardButtonPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowSelectCardButtonsPreview() {
+private fun SelectCardButtonsPreview() {
     BankSelectRow(onBankClick = {})
 }

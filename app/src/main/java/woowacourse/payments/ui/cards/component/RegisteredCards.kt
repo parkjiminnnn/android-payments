@@ -36,7 +36,7 @@ fun RegisteredCards(
 
 @Composable
 @Preview
-private fun ShowRegisteredCardsPreview() {
+private fun RegisteredCardsPreview() {
     val card =
         Card
             .create(

@@ -39,7 +39,7 @@ fun PasswordInputField(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowPasswordInputFieldPreview() {
+private fun PasswordInputFieldPreview() {
     PasswordInputField(
         text = "",
         onValueChange = { },

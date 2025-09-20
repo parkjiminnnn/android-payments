@@ -39,7 +39,7 @@ fun ExpiryDateInputField(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowExpiryDateInputFieldPreview() {
+private fun ExpiryDateInputFieldPreview() {
     ExpiryDateInputField(
         text = "",
         onValueChange = { },

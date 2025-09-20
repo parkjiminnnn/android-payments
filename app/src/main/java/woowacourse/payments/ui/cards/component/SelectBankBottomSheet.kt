@@ -53,7 +53,7 @@ fun SelectBankBottomSheet(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-private fun ShowBottomSheetPreview() {
+private fun BottomSheetPreview() {
     SelectBankBottomSheet(
         modifier = Modifier.height(342.dp),
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),

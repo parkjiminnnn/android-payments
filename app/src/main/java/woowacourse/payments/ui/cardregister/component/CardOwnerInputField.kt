@@ -44,7 +44,7 @@ fun CardOwnerInputField(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShowCardOwnerInputFieldPreview() {
+private fun CardOwnerInputFieldPreview() {
     CardOwnerInputField(
         text = "",
         onValueChange = { },

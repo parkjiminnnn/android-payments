@@ -111,6 +111,6 @@ fun String.formatCardNumber(): String =
 
 @Preview
 @Composable
-private fun ShowPaymentCardPreview() {
+private fun PaymentCardPreview() {
     PaymentCard(bankViewType = BankViewType.BC)
 }
