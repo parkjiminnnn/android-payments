@@ -5,8 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,8 +29,7 @@ fun BankSelectRow(
     onBankClick: (BankViewType) -> Unit,
 ) {
     FlowRow(
-        modifier = modifier.height(145.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(23.dp),
         maxItemsInEachRow = COLUMN_COUNT,
     ) {
@@ -39,6 +40,7 @@ fun BankSelectRow(
                     nameRes = bankViewType.nameRes,
                     onClick = { onBankClick(bankViewType) },
                     contentDescription = bankViewType.name,
+                    modifier = Modifier.weight(1f),
                 )
             }
         }
@@ -56,7 +58,6 @@ private fun BankSelectionButton(
     Column(
         modifier =
             modifier
-                .size(width = 80.dp, height = 60.dp)
                 .clickable { onClick() },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -65,6 +66,7 @@ private fun BankSelectionButton(
             painter = painterResource(imageRes),
             contentDescription = contentDescription,
         )
+        Spacer(modifier = Modifier.height(9.dp))
         Text(text = stringResource(nameRes), fontSize = 16.sp, lineHeight = 20.sp)
     }
 }
